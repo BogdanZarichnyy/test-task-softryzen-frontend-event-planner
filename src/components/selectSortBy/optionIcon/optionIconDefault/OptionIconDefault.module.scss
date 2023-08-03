@@ -1,0 +1,9 @@
+@import '../../../../sass/utils/variables';
+@import '../../../../sass/utils/functions';
+
+.sortByIcon {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: getColor('text-main');
+}

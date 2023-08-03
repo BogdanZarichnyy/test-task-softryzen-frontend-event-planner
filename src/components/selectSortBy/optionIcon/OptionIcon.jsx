@@ -1,31 +1,33 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { components } from 'react-select';
 
-import sprite from '../../../images/sprite.svg';
+import OptionIconAscending from './optionIconAscending/OptionIconAscending';
+import OptionIconDescending from './optionIconDescending/OptionIconDescending';
+import OptionIconDefault from './optionIconDefault/OptionIconDefault';
 
-import scss from './OptionIcon.module.scss';
 
 const OptionIcon = props => {
+    const [isAscending, setIsAscending] = useState(null);
     
     useEffect(() => {
-        console.log(props);
-    }, []);
+        if (props.data.value.includes('ascending')) {
+            setIsAscending(true);
+        } else if (props.data.value.includes('descending')) {
+            setIsAscending(false);
+        } else {
+            setIsAscending(null);
+        }
+    }, [props.data.value]);
 
     return (
         <components.Option {...props}>
             {props.data.label}
-            <svg className={scss.optionIcon}>
-                <use id="arrow-up-small" href={`${sprite}#arrow-up-small`} />
-            </svg>
-            {/* {props.data.value.include('ascending') ?
-                <svg className={scss.optionIcon}>
-                    <use id="arrow-up-small" href={`${sprite}#arrow-up-small`} />
-                </svg>
+            {isAscending === true ? <OptionIconAscending />
                 :
-                <svg className={scss.optionIcon}>
-                    <use id="arrow-up-small" href={`${sprite}#arrow-up-small`} />
-                </svg>
-            } */}
+                isAscending === false ? <OptionIconDescending />
+                :
+                <OptionIconDefault />
+            }
         </components.Option>
     );
 }

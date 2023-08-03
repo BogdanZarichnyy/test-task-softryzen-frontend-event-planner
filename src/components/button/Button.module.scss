@@ -1,0 +1,31 @@
+@import '../../sass/utils/variables';
+@import '../../sass/utils/functions';
+@import '../../sass/utils/mixins';
+
+.button {
+    display: block;
+    background-color: getColor('general');
+    border: 0;
+    border-radius: 8px;
+    padding: 16px;
+    text-align: center;
+    font-family: 'Poppins-Medium';
+    @include font(16px, 24px);
+    color: getColor('main');
+    @include boxShadow();
+    @include transition-effect(background-color opacity);
+
+    // @media screen and (min-width: $tablet) {
+    //     display: flex;
+    //     align-items: center;
+    // }
+
+    &:disabled {
+        background-color: getColor('disable');
+    }
+
+    &:hover,
+    &:focus {
+        background-color: getColor('hover');
+    }
+}

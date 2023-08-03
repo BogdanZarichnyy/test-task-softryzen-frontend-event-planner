@@ -6,10 +6,10 @@
         font-family: 'Poppins-Medium' !important;
         background-color: getColor('main') !important;
         @include font(16px, 24px);
-        @include boxShadow();
-        border-radius: 8px !important;
-        width: 56px !important;
-        height: 56px !important;
+        // @include boxShadow();
+        // border-radius: 8px !important;
+        // width: 56px !important;
+        // height: 56px !important;
         display: block;
         @include transition-effect(width z-index);
         z-index: 2;
@@ -21,7 +21,8 @@
     }
 
     &__control {
-        flex-direction: row-reverse !important;
+        // flex-direction: row-reverse !important;
+        flex-direction: row !important;
         flex-wrap: nowrap !important;
         justify-content: center !important;
         cursor: pointer !important;
@@ -31,7 +32,16 @@
         border-radius: 8px !important;
         width: 56px !important;
         height: 56px !important;
+        @include boxShadow();
         @include transition-effect(width padding flex-direction);
+
+        @media screen and (min-width: $tablet) {
+            width: 143px !important;
+        }
+    
+        @media screen and (min-width: $desktop) {
+            width: 148px !important;
+        }
 
         &:hover svg {
             stroke: getColor('hover');
@@ -40,13 +50,14 @@
         .custom-select-category-container:hover &,
         .custom-select-category-container:focus & {
             width: 158px !important;
-            padding: 16px 21px !important;
+            box-shadow: 0 !important;
+            // padding: 16px 21px !important;
         }
 
         &--menu-is-open {
             box-shadow: none !important;
             width: 158px !important;
-            padding: 16px 21px !important;
+            // padding: 16px 21px !important;
             border-radius: 8px 8px 0 0 !important;
             border-bottom: 1px solid getColor('disable') !important;
             z-index: 2;
@@ -56,14 +67,14 @@
     &__value-container {
         padding: 0 !important;
 
-        .custom-select-category-container:hover &,
-        .custom-select-category-container:focus & {
-            margin-left: 4px;
-        }
+        // .custom-select-category-container:hover &,
+        // .custom-select-category-container:focus & {
+        //     margin-left: 4px;
+        // }
 
-        .custom-select-category__control--menu-is-open & {
-            margin-left: 4px;
-        }
+        // .custom-select-category__control--menu-is-open & {
+        //     margin-left: 4px;
+        // }
     }
 
     &__placeholder {
@@ -131,6 +142,11 @@
         &--is-focused {
             color: getColor('hover') !important;
             border-color: getColor('hover') !important;
+        }
+
+        &--is-selected {
+            color: getColor('general') !important;
+            border-color: getColor('general') !important;
         }
 
         &:last-child {

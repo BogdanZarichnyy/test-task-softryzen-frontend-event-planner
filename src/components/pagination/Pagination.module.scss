@@ -1,0 +1,15 @@
+@import '../../sass/utils/variables';
+@import '../../sass/utils/functions';
+@import '../../sass/utils/mixins';
+
+.pagination {
+    margin-top: 40px;
+    padding: 10px;
+    border-radius: 8px;
+    background-color: getColor('main');
+    @include boxShadow();
+
+    @media screen and (min-width: $desktop) {
+        margin-top: 32px;
+    }
+}

@@ -6,6 +6,9 @@
         <symbol id="arrow-up-small" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 7v10m0-10 4 4m-4-4-4 4"></path>
         </symbol>
+        <symbol id="arrow-down-small" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 17V7m0 10-4-4m4 4 4-4"></path>
+        </symbol>
         <symbol id="chevron-left" viewBox="0 0 24 24">
             <path fill="#BCBCBC" d="M8.22 12.72a.75.75 0 0 1-.22-.53v-.38c0-.2.08-.39.22-.53l5.14-5.13a.5.5 0 0 1 .71 0l.71.71a.49.49 0 0 1 0 .7L10.33 12l4.45 4.44a.5.5 0 0 1 0 .71l-.71.7a.5.5 0 0 1-.71 0l-5.14-5.13Z"></path>
         </symbol>

@@ -70,9 +70,9 @@
         padding: 0 0 4px !important;
         position: relative !important;
         cursor: pointer !important;
-        color: getColor('text-disable') !important;
+        color: getColor('disable') !important;
         background-color: inherit !important;
-        border-bottom: 1px solid getColor('text-disable') !important;
+        border-bottom: 1px solid getColor('disable') !important;
 
         &--is-focused {
             color: getColor('hover') !important;

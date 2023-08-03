@@ -1,0 +1,15 @@
+@import './sass/utils/variables';
+@import './sass/utils/functions';
+@import './sass/utils/mixins';
+
+.main {
+    // background-image: url('./images/background.svg');
+    background-image: url('./images/background.jpg');
+    background-position: top left;
+    background-repeat: repeat-y;
+    flex-grow: 1;
+
+    @media screen and (min-width: $desktop) {
+        background-position: top center;
+    }
+}
