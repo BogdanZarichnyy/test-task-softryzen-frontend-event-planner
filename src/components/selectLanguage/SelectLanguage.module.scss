@@ -1,0 +1,86 @@
+.custom-select-language {
+    &-container {
+        font-family: 'Poppins-Medium' !important;
+        @include font(16px, 16px);
+        @include boxShadow();
+        border-radius: 8px !important;
+        width: 69px !important;
+        display: inline-block;
+
+        &:hover svg {
+            stroke: getColor('hover');
+        }
+
+        @media screen and (min-width: $tablet) {
+            margin-left: 24px;
+            order: 2;
+        }
+    }
+
+    &__control {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: flex-start !important;
+        cursor: pointer !important;
+        outline: 0 !important;
+        transition: all 250ms !important;
+        background-color: getColor('main') !important;
+        padding: 12px 6px 12px 12px !important;
+        border: none !important;
+        border-radius: 8px !important;
+        min-height: auto !important;
+        width: 69px !important;
+    }
+
+    &__value-container {
+        width: 22px !important;
+        padding: 0 !important;
+    }
+
+    &__single-value {
+        margin: 0 !important;
+        width: 22px !important;
+        height: 16px !important;
+
+        
+        .custom-select-language-container:hover & {
+            color: getColor('hover') !important;
+        }
+    }
+    
+    &__indicator-separator {
+        display: none !important;
+    }
+
+    &__indicator {
+        padding: 0 !important;
+    }
+
+    &__menu {
+        margin: 0 !important;
+        margin-top: 15px !important;
+        border: 0 !important;
+        border-radius: 8px !important;
+        padding: 16px 12px !important;
+        @include boxShadow();
+    }
+
+    &__option {
+        margin: 0 !important;
+        padding: 0 0 4px !important;
+        position: relative !important;
+        cursor: pointer !important;
+        color: getColor('text-disable') !important;
+        background-color: inherit !important;
+        border-bottom: 1px solid getColor('text-disable') !important;
+
+        &--is-focused {
+            color: getColor('hover') !important;
+            border-color: getColor('hover') !important;
+        }
+    }
+
+    &__option + &__option {
+        margin-top: 8px !important;
+    }
+}

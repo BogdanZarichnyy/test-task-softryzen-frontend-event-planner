@@ -1,0 +1,22 @@
+@mixin font($fs: 16px, $lh: 22px) {
+    font-size: $fs;
+    line-height: decimal-round(calc($lh / $fs), 2);
+}
+
+@mixin boxShadow() {
+    box-shadow: 2px 4px 9px 0px getColor('box-shadow') !important;
+}
+
+@mixin transition-effect($propertes) {
+    transition-property: $propertes;
+    transition-duration: 250ms;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@mixin animation-effect($name) {
+    animation-name: $name;
+    animation-duration: 250ms;
+    animation-direction: alternate;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}

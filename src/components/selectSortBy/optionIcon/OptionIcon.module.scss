@@ -1,0 +1,12 @@
+@import '../../../sass/utils/variables';
+@import '../../../sass/utils/functions';
+
+.optionIcon {
+    position: absolute;
+    top: 50%;
+    right: 24px;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    stroke: getColor('disable');
+}

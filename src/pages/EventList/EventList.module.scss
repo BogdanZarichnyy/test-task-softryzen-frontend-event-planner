@@ -1,0 +1,48 @@
+@import '../../sass/utils/variables';
+@import '../../sass/utils/functions';
+@import '../../sass/utils/mixins';
+
+.eventList {
+    padding: 40px 0;
+    background-image: url('../../images/background.svg');
+    background-position: top left;
+    background-repeat: no-repeat;
+
+    @media screen and (min-width: $desktop) {
+        background-position: top center;
+    }
+}
+
+.filterList {
+    display: flex;
+    justify-content: flex-end;
+    margin-left: auto;
+    gap: 24px;
+}
+
+.item {
+    height: 56px;
+    width: 56px;
+    position: relative;
+    display: block;
+    border-radius: 8px;
+    // @include boxShadow();
+}
+
+.buttonEventCreate {
+    background-color: getColor('general');
+    border: 0;
+    border-radius: 8px;
+    padding: 16px;
+    @include boxShadow();
+
+    &:hover {
+        background-color: getColor('hover');
+    }
+}
+
+.buttonEventCreateIcon {
+    display: block;
+    width: 24px;
+    height: 24px;
+}

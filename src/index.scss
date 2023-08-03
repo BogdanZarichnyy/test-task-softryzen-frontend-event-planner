@@ -1,0 +1,69 @@
+@import-normalize; /*bring in normalize.css styles */
+@import url('./stylesheets/fonts/fonts.css');
+
+@import './sass/utils/variables';
+@import './sass/utils/functions';
+@import './sass/utils/mixins';
+@import './sass/utils/container';
+@import './sass/utils/visually-hidden';
+
+@import "./components/selectLanguage/SelectLanguage.module.scss";
+@import "./components/selectCategory/SelectCategory.module.scss";
+@import "./components/selectSortBy/SelectSortBy.module.scss";
+
+*,
+::after,
+::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: inherit;
+    font-style: inherit;
+    font-size: 100%;
+    font-family: inherit;
+}
+
+img {
+    display: block;
+    width: 100%;
+}
+
+ul {
+    list-style: none;
+}
+
+li {
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    cursor: pointer;
+}
+
+body {
+    font-family: 'Poppins-Regular';
+    color: getColor('text-main');
+    background-color: getColor('main');
+    // background-color: grey;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    // &::-webkit-scrollbar {
+    //     @media screen and (min-width: 320px) {
+    //         display: none;
+    //     }
+    // }
+}
