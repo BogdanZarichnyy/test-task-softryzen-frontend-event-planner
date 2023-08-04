@@ -1,3 +1,236 @@
 @import '../../sass/utils/variables';
 @import '../../sass/utils/functions';
 @import '../../sass/utils/mixins';
+
+.eventDetails {
+    padding: 40px 0;
+
+    @media screen and (min-width: $tablet) {
+        padding: 40px 0;
+    }
+
+    @media screen and (min-width: $desktop) {
+        padding: 40px 0;
+    }
+}
+
+.wrraper {
+    @media screen and (min-width: $desktop) {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.linkBack {
+    display: inline-flex;
+    align-items: center;
+    font-family: 'Poppins-Medium';
+    color: getColor('general');
+    @include font(14px, 21px);
+    @include transition-effect(color);
+    align-self: flex-start;
+
+    &:hover {
+        color: getColor('hover');
+    }
+
+    &:hover .linkBackIcon {
+        stroke: getColor('hover');
+    }
+}
+
+.linkBackIcon {
+    height: 24px;
+    width: 24px;
+    stroke: getColor('general');
+    margin-right: 8px;
+    @include transition-effect(stroke);
+}
+
+.details {
+    margin-top: 24px;
+
+    @media screen and (min-width: $desktop) {
+        margin-top: 17px;
+    }
+}
+
+.title {
+    font-family: 'Poppins-SemiBold';
+    @include font(24px, 36px);
+
+    @media screen and (min-width: $tablet) {
+        @include font(32px, 48px);
+    }
+}
+
+.detailsInfo {
+    background-color: getColor('main');
+    @include boxShadow();
+    border-radius: 8px;
+    overflow: hidden;
+    margin-top: 24px;
+
+    @media screen and (min-width: $desktop) {
+        width: 628px;
+        margin-top: 14px;
+    }
+}
+
+.eventPicture {
+    height: 168px;
+    border-radius: 8px;
+    object-fit: cover;
+
+    @media screen and (min-width: $tablet) {
+        height: 272px;
+    }
+}
+
+.eventDefaultImage {
+    height: 168px;
+    border-radius: 8px;
+    overflow: hidden;
+
+    @media screen and (min-width: $tablet) {
+        height: 272px;
+    }
+}
+
+.eventDefaultImageIcon {
+    display: inline-block;
+    height: 334px;
+    margin-top: calc((100% - 334px - 40px) / 2);
+    width: 300px;
+    margin-left: calc((100% - 300px) / 2);
+
+    @media screen and (min-width: $tablet) {
+        height: 298px;
+        margin-top: calc((298px - 272px) / -2);
+        width: 688px;
+        margin-left: 0;
+    }
+
+    @media screen and (min-width: $desktop) {
+        height: 272px;
+        margin-top: 0;
+        width: 628px;
+        margin-left: 0;
+    }
+}
+
+.eventInfo {
+    padding: 24px 16px 40px;
+
+    @media screen and (min-width: $tablet) {
+        padding: 24px 24px 40px;
+    }
+
+    @media screen and (min-width: $desktop) {
+        padding: 20px 16px 40px 10px;
+    }
+}
+
+.eventDescription {
+    @include font(14px, 20px);
+
+    @media screen and (min-width: $desktop) {
+        min-height: 60px;
+    }
+}
+
+.eventRating {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 24px;
+    gap: 12px;
+
+    @media screen and (min-width: $desktop) {
+        margin-top: 12px;
+    }
+}
+
+.eventCategory {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 8px;
+    color: getColor('general');
+    font-family: 'Poppins-Medium';
+    @include font(14px, 20px);
+    @include boxShadow();
+}
+
+@each $eventPriority in High, Medium, Low {
+    .eventPriority#{$eventPriority} {
+        display: inline-block;
+        padding: 6px 12px;
+        border-radius: 8px;
+        background-color: getColor('main');
+        font-family: 'Poppins-Medium';
+        @include font(14px, 20px);
+        @include boxShadow();
+        color: getColor('category-#{$eventPriority}');
+    }
+}
+
+.eventLocation {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 8px;
+    color: getColor('general');
+    font-family: 'Poppins-Medium';
+    @include font(14px, 20px);
+    @include boxShadow();
+}
+
+.eventDateTime {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 8px;
+    color: getColor('general');
+    @include font(14px, 24px);
+    @include boxShadow();
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 40px;
+
+    @media screen and (min-width: $tablet) {
+        justify-content: flex-end;
+        gap: 16px
+    }
+
+    @media screen and (min-width: $desktop) {
+        margin-top: 24px;
+    }
+}
+
+.eventEdit {
+    box-sizing: border-box;
+    display: inline-block;
+    width: 108px;
+    padding: 7px 15px;
+    border-radius: 4px;
+    border: 1px solid getColor('general');
+    text-align: center;
+    color: getColor('general');
+    font-family: 'Poppins-Medium';
+    @include font(12px, 16px);
+    @include transition-effect(border color);
+
+    &:hover {
+        border-color: getColor('hover');
+        color: getColor('hover');
+    }
+}
+
+.buttonEdit {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 4px;
+    @include font(12px, 16px);
+    box-shadow: none !important;
+}

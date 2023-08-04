@@ -1,26 +1,37 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import SelectCategory from '../../components/selectCategory/SelectCategory';
 import SelectSortBy from '../../components/selectSortBy/SelectSortBy';
 import Button from '../../components/button/Button';
 import Pagination from '../../components/pagination/Pagination';
 
-import db from '../../assets/db/eventList';
-
 import sprite from '../../images/sprite.svg';
 
 import scss from './EventList.module.scss';
 
+import db from '../../assets/db/eventList';
+
 const EventList = () => {
     const [eventList, setEventList] = useState([]);
+    // const [itemsPerPage, setItemsPerPage] = useState(6);
+    // const [currentEventList, setCurrentEventList] = useState([]);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         setEventList(db);
     }, []);
 
-    const showMoreInfo = (eventId) => {
-        console.log('showMoreInfo eventId', eventId);
+    const handlerShowMoreInfo = (eventItem) => {
+        console.log('showMoreInfo eventItem', eventItem);
+        // navigate('/details', { replace: true });
+        navigate('/details');
     }
+    
+    // const initCurrentItemsHandler = (currentItems) => {
+    //     console.log('initCurrentItemsHandler currentItems',currentItems);
+    //     setCurrentEventList(currentItems);
+    // }
 
     return(
         <section className={scss.eventSection}>
@@ -77,7 +88,10 @@ const EventList = () => {
                                         <div className={scss.eventInfo}>
                                             <h2 className={scss.eventTitle}>{item.title}</h2>
                                             <p className={scss.eventDescription}>{item.description}</p>
-                                            <Button styles={scss.eventButton} onClick={() => showMoreInfo(item.id)} text="More info"/>
+                                            
+                                            {/* <Button styles={scss.eventButton} onClick={() => handlerShowMoreInfo(item)} text="More info"/> */}
+                                            {/* <NavLink className={scss.eventButton} to={{ pathname: `/details/${item.id}`, propsSearch: item }}>More info</NavLink> */}
+                                            <NavLink className={scss.eventButton} to={`/details/${item.id}`}>More info</NavLink>
                                         </div>
                                     </div>
                                 </li>
@@ -85,7 +99,9 @@ const EventList = () => {
                         }
                     </ul>
 
-                    <Pagination />
+                    {/* <Pagination items={eventList} itemsPerPage={1} currentItemsHandler={initCurrentItemsHandler}/> */}
+
+                    <Pagination items={eventList} />
 
                 </div>
             </div>

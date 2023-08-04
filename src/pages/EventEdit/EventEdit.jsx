@@ -2,7 +2,7 @@ import scss from './EventEdit.module.scss';
 
 const EventEdit = () => {
     return(
-        <header className={scss.eventEdit}>
+        <section className={scss.eventEdit}>
             <div className='container'>
                 <div className={scss.wrraper}>
 
@@ -10,7 +10,7 @@ const EventEdit = () => {
 
                 </div>
             </div>
-        </header>
+        </section>
     );
 }
 

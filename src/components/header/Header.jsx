@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+// import { useState } from 'react';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { Field, Form, Formik } from 'formik';
 
 import SelectLanguage from '../selectLanguage/SelectLanguage';
@@ -9,15 +9,29 @@ import sprite from '../../images/sprite.svg';
 import scss from './Header.module.scss';
 
 const Header = () => {
+    const navigate = useNavigate();
+    const location = useLocation();
+    // console.log(location);
 
-    const onSearchHandler = (values, actions) => {
-        console.log(values);
-        // console.log(actions);
-
-        console.log(values.search);
-
+    const handlerOnSearch= (values, actions) => {
+        // console.log('values.search', values.search);
+        const data = {
+            search: values.search,
+        }
+        const paramsData = Object.keys(data);
+        // console.log('paramsData', paramsData);
+        let params;
+        for (const param of paramsData) {
+            // console.log('param', param);
+            params += param + '=' + data[param];
+        }
+        // console.log('params', params);
         actions.setSubmitting(false);
         actions.resetForm();
+        
+        // navigate(`${location.pathname}?search=${values.search}`);
+        // navigate(`/?search=${data.search}`);
+        navigate(`${location.pathname}?${params}`);
     }
 
     return(
@@ -31,8 +45,8 @@ const Header = () => {
 
                     <Formik
                         initialValues={{ search: '' }}
-                        onSubmit={onSearchHandler}
-
+                        // validationSchema={addTransactionSchema}
+                        onSubmit={handlerOnSearch}
                     >
                         {() => (
                             <Form className={scss.form}>

@@ -30,7 +30,7 @@ const SelectCategory = () => {
         return currentCategory ? options.find(language => language.value === currentCategory) : '';
     }
 
-    const selectedOption = (newValue) => {
+    const handlerSelectedOption = (newValue) => {
         console.log(newValue.value);
         // console.log(newValue.label);
         setCurrentCategory(newValue.value);
@@ -41,7 +41,7 @@ const SelectCategory = () => {
             className="custom-select-category-container"
             classNamePrefix="custom-select-category"
             value={getValueCategory()}
-            onChange={selectedOption}
+            onChange={handlerSelectedOption}
             options={options}
             isSearchable={false}
             placeholder={"Category"}

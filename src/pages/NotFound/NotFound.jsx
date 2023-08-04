@@ -1,4 +1,4 @@
-import scss from './NotFound.module.scss';
+// import scss from './NotFound.module.scss';
 
 const NotFound = () => {
     return(

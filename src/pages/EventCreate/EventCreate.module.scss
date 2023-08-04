@@ -1,3 +1,59 @@
 @import '../../sass/utils/variables';
 @import '../../sass/utils/functions';
 @import '../../sass/utils/mixins';
+
+.eventCreate {
+    padding: 40px 0;
+
+    @media screen and (min-width: $tablet) {
+        padding: 40px 0;
+    }
+
+    @media screen and (min-width: $desktop) {
+        padding: 40px 0;
+    }
+}
+
+.wrraper {
+    width: 100%;
+}
+
+.linkBack {
+    display: inline-flex;
+    align-items: center;
+    font-family: 'Poppins-Medium';
+    color: getColor('general');
+    @include font(14px, 21px);
+    @include transition-effect(color);
+    align-self: flex-start;
+
+    &:hover {
+        color: getColor('hover');
+    }
+
+    &:hover .linkBackIcon {
+        stroke: getColor('hover');
+    }
+}
+
+.linkBackIcon {
+    height: 24px;
+    width: 24px;
+    stroke: getColor('general');
+    margin-right: 8px;
+    @include transition-effect(stroke);
+}
+
+.title {
+    margin-top: 24px;
+    font-family: 'Poppins-SemiBold';
+    @include font(24px, 36px);
+
+    @media screen and (min-width: $tablet) {
+        @include font(32px, 48px);
+    }
+
+    @media screen and (min-width: $desktop) {
+        margin-top: 17px;
+    }
+}

@@ -35,7 +35,7 @@ const SelectSortBy = () => {
         return currentSortBy ? options.find(sortBy => sortBy.value === currentSortBy) : '';
     }
 
-    const selectedOption = (newValue) => {
+    const handlerSelectedOption = (newValue) => {
         console.log(newValue.value);
 
         if (newValue.value.includes('ascending')) {
@@ -54,7 +54,7 @@ const SelectSortBy = () => {
             className="custom-select-sort-by-container"
             classNamePrefix="custom-select-sort-by"
             value={getValueSortBy()}
-            onChange={selectedOption}
+            onChange={handlerSelectedOption}
             options={options}
             isSearchable={false}
             placeholder={"Sort by"}

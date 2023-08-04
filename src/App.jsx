@@ -11,18 +11,16 @@ import NotFound from './pages/NotFound/NotFound';
 import scss from './App.module.scss';
 
 function App() {
-  // const location = useLocation();
 
   return (
     <>
       <Header />
-      {/* <Routes location={location} key={location.pathname}> */}
       <main className={scss.main}>
         <Routes>
           <Route path="/" element={<EventList />} />
           <Route path="/create" element={<EventCreate />} />
-          <Route path="/details" element={<EventDetails />} />
-          <Route path="/edit" element={<EventEdit />} />
+          <Route path="/details/:eventId" element={<EventDetails />} />
+          <Route path="/edit/:eventId" element={<EventEdit />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

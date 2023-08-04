@@ -31,6 +31,14 @@
 }
 
 @font-face {
+    font-family: 'Poppins-ExtraBold';
+    src: local('Poppins-ExtraBold'),
+        url(../../assets/fonts/Poppins-ExtraBold.ttf) format('truetype');
+    font-weight: 800;
+    font-style: normal;
+}
+
+@font-face {
     font-family: 'Alata-Regular';
     src: local('Alata-Regular'),
         url(../../assets/fonts/Alata-Regular.ttf) format('truetype');

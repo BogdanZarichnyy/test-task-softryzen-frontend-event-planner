@@ -2,14 +2,106 @@
 @import '../../sass/utils/functions';
 @import '../../sass/utils/mixins';
 
-.pagination {
+.paginationList {
+    display: inline-flex;
+    width: 100%;
+    // justify-content: center;
+    justify-content: space-between;
     margin-top: 40px;
     padding: 10px;
     border-radius: 8px;
     background-color: getColor('main');
     @include boxShadow();
 
+    // @media screen and (min-width: $tablet) {
+    //     justify-content: space-between;
+    // }
+
     @media screen and (min-width: $desktop) {
         margin-top: 32px;
+        width: auto;
+    }
+}
+
+.icon {
+    height: 24px;
+    width: 24px;
+    fill: getColor('pagination-icon');
+}
+
+.paginationItem {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    text-align: center;
+    color: getColor('disable');
+    @include transition-effect(color);
+    
+    &:hover {
+        color: getColor('hover');
+    }
+
+    @media screen and (min-width: $tablet) {
+        width: 64px;
+        height: 64px;
+    }
+}
+
+.paginationItemArrow {
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    fill: getColor('disable');
+    @include transition-effect(fill);
+
+    &:hover svg {
+        fill: getColor('hover');
+    }
+
+    @media screen and (min-width: $tablet) {
+        width: 64px;
+        height: 64px;
+    }
+}
+
+.paginationLink {
+    width: 100%;
+    height: 100%;
+    padding: 6px 0 7px;
+    font-family: 'Poppins-ExtraBold';
+    @include font(18px, 27px);
+    cursor: pointer;
+
+    @media screen and (min-width: $tablet) {
+        padding: 19px 0 18px;
+    }
+}
+
+.paginationLinkArrow {
+    width: 100%;
+    height: 100%;
+    padding: 8px;
+    cursor: pointer;
+
+    @media screen and (min-width: $tablet) {
+        padding: 20px;
+    }
+}
+
+.activeLink {
+    color: getColor('general');
+
+    .paginationItem:hover & {
+        color: getColor('hover');
+    }
+}
+
+.disabledLink {
+    cursor: auto;
+
+    &:hover svg {
+        fill: getColor('pagination-icon');
     }
 }

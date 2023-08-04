@@ -71,11 +71,15 @@
 .inputSearch {
     padding: 16px 12px 16px calc(12px + 24px + 12px);
     @include font(14px, 14px);
-    color: getColor('search-placeholder');
+    color: getColor('general');
     border: 0;
     border-radius: 8px;
     width: 100%;
     @include boxShadow();
+
+    &::placeholder {
+        color: getColor('search-placeholder');
+    }    
 }
 
 .buttonSubmit {

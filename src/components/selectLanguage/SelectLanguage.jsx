@@ -14,7 +14,7 @@ const SelectLanguage = () => {
         return currentLanguage ? options.find(language => language.value === currentLanguage) : 'EN';
     }
 
-    const selectedOption = (newValue) => {
+    const handlerSelectedOption = (newValue) => {
         console.log(newValue.value);
         setCurrentLanguage(newValue.value);
     }
@@ -24,7 +24,7 @@ const SelectLanguage = () => {
             className="custom-select-language-container"
             classNamePrefix="custom-select-language"
             value={getValueLanguage()}
-            onChange={selectedOption}
+            onChange={handlerSelectedOption}
             options={options}
             isSearchable={false}
             components={{ DropdownIndicator: CustomIconSelectLanguage }}

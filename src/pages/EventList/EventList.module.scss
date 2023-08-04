@@ -3,12 +3,25 @@
 @import '../../sass/utils/mixins';
 
 .eventSection {
-    padding: 40px 0;
-    flex-grow: 1;
+    padding: 40px 0 42px;
+
+    @media screen and (min-width: $tablet) {
+        padding: 40px 0 125px;
+    }
+
+    @media screen and (min-width: $desktop) {
+        padding: 40px 0 77px;
+    }
 }
 
 .wrraper {
     position: relative;
+
+    @media screen and (min-width: $desktop) {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
 }
 
 .filterList {
@@ -232,6 +245,8 @@
 .eventInfo {
     background-color: getColor('main');
     padding: 16px;
+    display: flex;
+    flex-direction: column;
 }
 
 .eventTitle {
@@ -252,4 +267,34 @@
     margin-left: auto;
     padding: 10px 24px;
     @include font(14px, 20px);
+
+    align-self: flex-end;
+    display: inline-block;
+    background-color: getColor('general');
+    border: 0;
+    border-radius: 8px;
+    // padding: 16px;
+    text-align: center;
+    font-family: 'Poppins-Medium';
+    // @include font(16px, 24px);
+    color: getColor('main');
+    @include boxShadow();
+    @include transition-effect(background-color opacity);
+
+    &:disabled {
+        background-color: getColor('disable');
+    }
+
+    &:hover,
+    &:focus {
+        background-color: getColor('hover');
+    }
+}
+
+.pagination {
+    display: block;
+
+    @media screen and (min-width: $desktop) {
+        margin-left: auto;
+    }
 }
