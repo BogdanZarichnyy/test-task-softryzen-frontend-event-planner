@@ -1,8 +1,8 @@
 import scss from './Button.module.scss';
 
-const Button = ({ styles, text, onClick }) => {
+const Button = ({ styles, text, onClick, type = 'button' }) => {
     return (
-        <button className={[scss.button, styles].join(" ")} onClick={onClick}>
+        <button className={[scss.button, styles].join(" ")} onClick={onClick} type={type}>
             {text}
         </button>
     )

@@ -1,6 +1,7 @@
 // import { useState } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
-import { Field, Form, Formik } from 'formik';
+import { Field, Form, Formik, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
 import SelectLanguage from '../selectLanguage/SelectLanguage';
 
@@ -9,12 +10,16 @@ import sprite from '../../images/sprite.svg';
 import scss from './Header.module.scss';
 
 const Header = () => {
+    // const [isDisabled, setIsDisabled] = useState(true);
     const navigate = useNavigate();
     const location = useLocation();
     // console.log(location);
 
     const handlerOnSearch= (values, actions) => {
-        // console.log('values.search', values.search);
+        console.log('values.search', values.search);
+        if(!values.search) {
+            return;
+        }
         const data = {
             search: values.search,
         }
@@ -45,21 +50,40 @@ const Header = () => {
 
                     <Formik
                         initialValues={{ search: '' }}
-                        // validationSchema={addTransactionSchema}
                         onSubmit={handlerOnSearch}
+                        validationSchema={Yup.object().shape({
+                            search: Yup.string()
+                                .max(30, "Search must be at most 30 characters")
+                                .matches(/^(?! )(?!-)[a-zA-Z\d\s-]+$/, "Invalid input - Only characters, '-' and numbers")
+                        })}
                     >
-                        {() => (
-                            <Form className={scss.form}>
-                                <Field className={scss.inputSearch} type="text" name="search" placeholder="Search by keywords" />
-                                <button className={scss.buttonSubmit} type="submit">
+                    {(props) => {
+                        const { errors, touched, handleReset, handleChange, setFieldTouched } = props;
+                        return (
+                            <Form className={scss.form} autoComplete="off">
+                                <Field 
+                                    onChange={event => {
+                                        setFieldTouched('search');
+                                        handleChange(event);
+                                    }}
+                                    className={[scss.inputSearch, errors.search && touched.search && scss.inputSearchInvalid].join(" ")} 
+                                    type="text" name="search" placeholder="Search by keywords"/>
+                                <ErrorMessage name="search" component="span" className={scss.errorFeedback} />
+                                <button className={scss.buttonSubmit} type="submit" disabled={errors.search && touched.search && true}>
                                     <svg className={scss.buttonSubmitIcon}>
                                         <use id="search" href={`${sprite}#search`} />
                                     </svg>
                                 </button>
+                                <button className={scss.buttonReset} type="submit" onClick={handleReset}>
+                                    <svg className={[scss.buttonResetIcon, errors.search && touched.search && scss.buttonResetIconInvalid].join(" ")}>
+                                        <use id="cross-small" href={`${sprite}#cross-small`} />
+                                    </svg>
+                                </button>
                             </Form>
                         )}
+                    }
                     </Formik>
-
+        
                 </nav>
             </div>
         </header>

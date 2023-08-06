@@ -10,20 +10,191 @@
     @include boxShadow();
 }
 
-.input {
-    padding: 16px 12px 16px calc(12px + 24px + 12px);
-    @include font(14px, 14px);
+.formContainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    row-gap: 20px;
+}
+
+.labelInput {
+    display: block;
+    position: relative;
     color: getColor('general');
-    border: 0;
+    font-family: 'Poppins-Regular';
+    @include font(16px, 16px);
+}
+
+.input {
+    margin-top: 8px;
+    padding: 16px calc(12px + 24px) 16px 12px;
+    font-family: 'Poppins-Regular';
+    @include font(16px, 24px);
+    color: getColor('text-main');
+    border: 1px solid getColor('disable');
     border-radius: 8px;
     width: 100%;
+    outline: transparent;
+
+    &:focus {
+        border-color: getColor('general');
+    }
+}
+
+.inputArea {
+    margin-top: 8px;
+    padding: 16px calc(12px + 24px) 16px 12px;
+    height: 156px;
+    font-family: 'Poppins-Regular';
+    @include font(16px, 24px);
+    color: getColor('text-main');
+    border: 1px solid getColor('disable');
+    border-radius: 8px;
+    width: 100%;
+    outline: transparent;
+    resize: none;
+
+    &:focus {
+        border-color: getColor('general');
+    }
+}
+
+.inputInvalid {
+    border-color: getColor('category-High');
+
+    &:focus {
+        border-color: getColor('category-High');
+    }
+}
+
+.errorFeedback {
+    position: absolute;
+    right: 19px;
+    bottom: -20px;
+    color: getColor('category-High');
+    @include font(12px, 16px);
+}
+
+.buttonInputReset {
+    position: absolute;
+    top: 41px;
+    right: 12px;
+    border: 0;
+    padding: 0;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: transparent;
+}
+
+.buttonInputResetIcon {
+    height: 24px;
+    width: 24px;
+    stroke: getColor('disable');
+    fill: transparent;
+
+    .input:not(:placeholder-shown) + .buttonInputReset & {
+        stroke: getColor('general');
+    }
+
+    .inputArea:not(:placeholder-shown) + .buttonInputReset & {
+        stroke: getColor('general');
+    }
+}
+
+.buttonResetIconInvalid {
+    stroke: getColor('category-High');
+
+    .input:not(:placeholder-shown) + .buttonInputReset & {
+        stroke: getColor('category-High');
+    }
+
+    .inputArea:not(:placeholder-shown) + .buttonInputReset & {
+        stroke: getColor('general');
+    }
+}
+
+.buttonInputDatePickerIcon {
+    position: absolute;
+    top: 41px;
+    right: 12px;
+    height: 24px;
+    width: 24px;
+    stroke: getColor('disable');
+    fill: transparent;
+}
+
+.inputDropdown {
+    box-shadow: none !important;
+    cursor: pointer;
+
+    &:hover {
+        border: 1px solid getColor('hover');
+    }
+}
+
+.placeholderDropdown {
+    color: transparent;
+
+    .inputDropdown:hover & {
+        color: getColor('hover') !important;
+    }
+}
+
+.buttonInputDropdwonIcon {
+    position: absolute;
+    top: 16px;
+    right: 12px;
+    height: 24px;
+    width: 24px;
+    stroke: getColor('disable');
+    fill: transparent;
+    @include transition-effect(stroke);
+
+    .inputDropdown:hover & {
+        stroke: getColor('hover');
+    }
+}
+
+.menuDropdown {
+    margin-top: 18px;
+    padding: 0 16px;
+    background-color: getColor('main');
+    border: 0;
+    border-radius: 8px;
+    max-height: none;
     @include boxShadow();
 
-    &::placeholder {
-        color: getColor('search-placeholder');
-    }    
+    & div {
+        padding: 16px 0;
+        color: getColor('text-main');
+        border-bottom: 1px solid getColor('disable');
+
+        &:hover {
+            background-color: inherit;
+            color: getColor('hover');
+        }
+
+        &[aria-selected="true"] {
+            background-color: inherit;
+            color: getColor('general');
+        }
+    }
+
+    & div:last-child {
+        border-bottom: none;
+    }
 }
 
 .buttonSubmit {
-
+    margin-top: 40px;
 }
+
+
+
+
+
+
+
+
+
+

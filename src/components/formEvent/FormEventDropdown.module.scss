@@ -1,0 +1,23 @@
+.Dropdown-root {
+    &.is-open .Dropdown-placeholder {
+        color: getColor('general');
+    }
+
+    &.is-open .Dropdown-control{
+        border: 1px solid getColor('general');
+    }
+
+    &.is-open svg{
+        stroke: getColor('general');
+    }
+}
+
+.Dropdown-placeholder {
+    &.is-selected {
+        color: getColor('general');
+    }
+
+    &.is-selected + div svg {
+        stroke: getColor('general');
+    }
+}

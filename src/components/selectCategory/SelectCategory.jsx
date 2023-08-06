@@ -2,26 +2,7 @@ import { useState } from 'react';
 import Select from 'react-select';
 import CustomIconSelectCategory from './customIconSelectCategory/CustomIconSelectCategory';
 
-// const options = [
-//     { value: 'by name', label: 'by name ascending' },
-//     { value: 'by name', label: 'by name descending' },
-//     { value: 'by data', label: 'by data ascending' },
-//     { value: 'by data', label: 'by data descending' },
-//     { value: 'by priority', label: 'by priority ascending' },
-//     { value: 'by priority', label: 'by priority descending' },
-// ];
-
-const options = [
-    // { value: 'Category', label: 'Category' },
-    { value: 'All', label: 'All' },
-    { value: 'Art', label: 'Art' },
-    { value: 'Music', label: 'Music' },
-    { value: 'Business', label: 'Business' },
-    { value: 'Conference', label: 'Conference' },
-    { value: 'Workshop', label: 'Workshop' },
-    { value: 'Party', label: 'Party' },
-    { value: 'Sport', label: 'Sport' },
-];
+import options from '../../assets/options/category';
 
 const SelectCategory = () => {
     const [currentCategory, setCurrentCategory] = useState();
