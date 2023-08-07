@@ -3,7 +3,7 @@
 @import '../../sass/utils/mixins';
 
 .button {
-    display: block;
+    display: inline-block;
     background-color: getColor('general');
     border: 0;
     border-radius: 8px;

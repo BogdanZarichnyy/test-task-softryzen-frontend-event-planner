@@ -113,16 +113,6 @@
     }
 }
 
-.buttonInputDatePickerIcon {
-    position: absolute;
-    top: 41px;
-    right: 12px;
-    height: 24px;
-    width: 24px;
-    stroke: getColor('disable');
-    fill: transparent;
-}
-
 .inputDropdown {
     box-shadow: none !important;
     cursor: pointer;
@@ -189,7 +179,105 @@
     margin-top: 40px;
 }
 
+.inputDatePiker {
+    &::placeholder {
+        color: transparent;
+    }
 
+    &:hover {
+        border-color: getColor('hover');
+
+        &::placeholder {
+            color: getColor('hover');
+            opacity: 1;
+        }
+    }
+}
+
+.buttonInputDatePiker {
+    &:hover svg {
+        stroke: getColor('hover');
+    }
+}
+
+.isOpenCalendar {
+    & svg {
+        stroke: getColor('general');
+    }
+}
+
+.datePiker {
+    position: absolute;
+    left: 0;
+    bottom: -380px;
+    padding: 20px;
+    width: 100%;
+    border-radius: 11px;
+    overflow: hidden;
+    background-color: getColor('main');
+    @include boxShadow();
+    z-index: 1;
+}
+
+.calendar {
+    border: 0;
+    font-family: 'Poppins-Medium';
+    @include font(12px, 16px);
+    color: getColor('text-main');
+}
+
+.buttonLabelCalendarIcon {
+    height: 20px;
+    width: 20px;
+    fill: getColor('disable');
+    @include transition-effect(fill);
+}
+
+.tile {
+    background-color: inherit;
+    font-family: 'Poppins-Regular';
+    color: getColor('disable');
+    @include font(12px, 16px);
+    @include transition-effect(color font-family);
+
+    &:hover {
+        background-color: inherit !important;
+        font-family: 'Poppins-SemiBold';
+        color: getColor('hover') !important;
+    }
+}
+
+.buttonsCalendar {
+    display: flex;
+    justify-content: space-between ;
+}
+
+.buttonCalendarCancel {
+    background-color: inherit;
+    padding: 7px 15px;
+    border-radius: 4px;
+    border: 1px solid getColor('general');
+    color: getColor('general');
+    @include font(12px, 16px);
+    @include transition-effect(color border-color);
+
+    &:hover,
+    &:focus {
+        background-color: inherit;
+        border-color: getColor('hover');
+        color: getColor('hover');
+    }
+}
+
+.buttonCalendarChooseDate {
+    padding: 8px 16px;
+    border-radius: 4px;
+    @include font(12px, 16px);
+}
+
+.timePicker {
+    
+}
 
 
 

@@ -217,9 +217,8 @@
     border: 1px solid getColor('general');
     text-align: center;
     color: getColor('general');
-    font-family: 'Poppins-Medium';
     @include font(12px, 16px);
-    @include transition-effect(border color);
+    @include transition-effect(border-color color);
 
     &:hover {
         border-color: getColor('hover');
