@@ -1,0 +1,130 @@
+.rc-time-picker-clear {
+    display: none;
+}
+
+.rc-time-picker-panel {
+    top: 870px !important;
+    left: calc((100vw - $mobile + 24px * 2) / 2 + 24px / 3) !important;
+    height: 160px;
+    width: calc($mobile - 24px * 3 - 24px / 3);
+    background-color: getColor('main');
+    border-radius: 8px;
+    @include boxShadow();
+    padding: 0 16px;
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: calc(100% / 3);
+        left: 16px;
+        height: 1px;
+        background-color: getColor('disable');
+        width: calc(100% - 16px * 2);
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        bottom: calc(100% / 3);
+        left: 16px;
+        height: 1px;
+        background-color: getColor('disable');
+        width: calc(100% - 16px * 2);
+    }
+
+    @media screen and (min-width: $tablet) {
+        top: 785px !important;
+        left: calc((100vw - $tablet + 40px * 2) / 2 + 24px) !important;
+        width: calc(($tablet - 40px * 3 - 24px / 3 - 24px) / 2);
+    }
+
+    @media screen and (min-width: $desktop) {
+        top: 485px !important;
+        left: calc((100vw - ($desktop - 80px * 2 - 40px * 2 - 42px * 2) / 3) / 2) !important;
+        width: calc(($desktop - 80px * 3 - 40px / 3 - 42px - 42px / 1.467) / 3);
+    }
+}
+
+.rc-time-picker-panel-inner {
+    display: block !important;
+    background-color: inherit !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    font-family: 'Poppins-SemiBold' !important;
+    color: getColor('disable');
+
+    &::before {
+        position: absolute;
+        top: 67px;
+        left: 57px;
+        content: ':';
+        font-family: 'Poppins-SemiBold' !important;
+        @include font(16px, 24px);
+        color: getColor('text-main');
+    }
+}
+
+.rc-time-picker-panel-input-wrap {
+    display: none;
+}
+
+.rc-time-picker-panel-select {
+    border: 0;
+    @include font(16px, 24px);
+    width: auto;
+
+    &::-webkit-scrollbar {
+        @media screen and (min-width: 320px) {
+            display: none;
+        }
+    }
+
+    & ul {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        transform: translateY(56px);
+    }
+
+    & li {
+        display: inline;
+        padding: 12px 10px !important;
+        height: auto !important;
+        width: auto !important;
+        text-align: center !important;
+
+        &:hover {
+            background: inherit !important;
+            color: getColor('hover');
+        }
+
+        &:last-child {
+            margin-bottom: calc((160px / 3) * 2 - 12px);
+        }
+    }
+}
+
+.rc-time-picker-panel-select + .rc-time-picker-panel-select:not(:last-child) {
+    margin-left: 39px;
+}
+
+.rc-time-picker-panel-select:last-child {
+    margin-left: 14px;
+    overflow-y: visible;
+    
+    & li:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.rc-time-picker-panel-select:last-child li.rc-time-picker-panel-select-option-selected {
+    order: -1;
+}
+
+.rc-time-picker-panel-select-option-selected {
+    background-color: inherit !important;
+    color: getColor('text-main');
+}
+
+
