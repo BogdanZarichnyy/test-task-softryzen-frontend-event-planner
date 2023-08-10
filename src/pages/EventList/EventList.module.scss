@@ -135,6 +135,7 @@
     }
 
     @media screen and (min-width: $desktop) {
+        width: 100%;
         grid-template-columns: repeat(4, 1fr);
         row-gap: 40px;
     }

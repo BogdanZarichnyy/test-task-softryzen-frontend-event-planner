@@ -1,27 +1,16 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import ReactDOM from 'react-dom';
+import { useNavigate } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
+
+import { useSelector, useDispatch } from "react-redux";
+import { pageSelector, limitSelector } from '../../redux/selectors';
+import { pageEvents, limitEvents } from '../../redux/slices/searchSlice';
 
 import scss from './Pagination.module.scss';
 
 import sprite from '../../images/sprite.svg';
 
 import constants from '../../assets/constants/resolutionPoints';
-
-// const Items = ({ currentItems }) => {
-//     console.log(currentItems);
-//     return (
-//         <>
-//             {currentItems &&
-//                 currentItems.map((item) => (
-//                     <div key={item}>
-//                         <h3>Item #{item}</h3>
-//                     </div>
-//                 ))
-//             }
-//         </>
-//     );
-// }
 
 const PreviousLabelElement = () => {
     return (
@@ -39,10 +28,14 @@ const NextLabelElement = () => {
     );
 }
 
-// const Pagination = ({ items, itemsPerPage, currentItemsHandler }) => {
+// const Pagination = ({ items, setPageParams }) => {
 const Pagination = ({ items }) => {
     const [pageRangeDisplayed, setPageRangeDisplayed] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(6);
+    const navigate = useNavigate();
+    // const pageStore = useSelector(pageSelector);
+    // const limitStore = useSelector(limitSelector);
+    const dispatch = useDispatch();
     
     // Here we use item offsets; we could also use page offsets
     // following the API or data you're working with.
@@ -71,11 +64,14 @@ const Pagination = ({ items }) => {
     useEffect(() => {
         if (dimensions.width < constants.TABLET_RESOLUTION_POINT) {
             setPageRangeDisplayed(1);
+            dispatch(limitEvents(6));
         } else if (dimensions.width >= constants.DESKTOP_RESOLUTION_POINT) {
             setPageRangeDisplayed(3);
             setItemsPerPage(8);
+            dispatch(limitEvents(8));
         } else {
             setPageRangeDisplayed(3);
+            dispatch(limitEvents(6));
         }
     }, [dimensions.width, setPageRangeDisplayed]);
     
@@ -84,7 +80,6 @@ const Pagination = ({ items }) => {
     // from an API endpoint with useEffect and useState)
     const endOffset = itemOffset + itemsPerPage;
     // console.log(`Loading items from ${itemOffset} to ${endOffset}`);
-    // const currentItems = items.slice(itemOffset, endOffset);
     const currentItems = items.slice(itemOffset, endOffset);
     // console.log('currentItems', currentItems);
     const pageCount = Math.ceil(items.length / itemsPerPage);
@@ -95,12 +90,14 @@ const Pagination = ({ items }) => {
         const newOffset = (event.selected * itemsPerPage) % items.length;
         // console.log(`User requested page number ${event.selected}, which is offset ${newOffset}`);
         setItemOffset(newOffset);
-        // currentItemsHandler(currentItems);
+        // setPageParams(event.selected + 1);
+        const numberPage = event.selected + 1;
+        dispatch(pageEvents(numberPage));
+        // navigate(`/?page=${event.selected + 1}`);
     };
 
     return(
         <>
-            {/* <Items currentItems={currentItems} /> */}
             <ReactPaginate
                 breakLabel="..."
                 nextLabel={<NextLabelElement />}

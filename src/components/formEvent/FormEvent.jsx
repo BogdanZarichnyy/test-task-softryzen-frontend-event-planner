@@ -26,18 +26,19 @@ import scss from './FormEvent.module.scss';
 
 import optionCategory from '../../assets/options/category';
 import priorityOptions from '../../assets/options/priority';
+import { object } from 'prop-types';
 
 const initialDataForFormCreate = {
     title: '',
     description: '',
     date: '',
-    time: null,
+    time: '',
     location: '',
     category: '',
     picture: '',
     priority: '',
     createAt: new Date(),
-    updateAt: new Date()
+    updateAt: new Date(),
 }
 
 const FormEvent = ({ initialValues = initialDataForFormCreate }) => {
@@ -72,18 +73,24 @@ const FormEvent = ({ initialValues = initialDataForFormCreate }) => {
         // navigate('/');
     }
 
-    const handlerIsDataSubmit = (dataForm) => {
-        console.log(dataForm);
-        const submitDataForm = Object.keys(dataForm)
-            .filter((item) => item === 'createAt' ? null : item === 'updateAt' ? null : item === 'picture' ? null : item);
-        // console.log(submitDataForm);
+    // const handlerIsDataSubmit = (dataForm) => {
+    //     console.log('dataForm', dataForm);
+    //     // const submitDataForm = Object.keys(dataForm)
+    //     //     .filter((item) => item === 'createAt' ? null : item === 'updateAt' ? null : item === 'picture' ? null : item);
+    //     // // console.log(submitDataForm);
 
-        for (const param of submitDataForm) {
-            if (!dataForm[param]) {
-                setIsSubmitForm(true);
-            } else setIsSubmitForm(false);
-        }
-    }
+    //     // const ddd = dataForm.title & dataForm.description & dataForm.date & dataForm.time & dataForm.location & dataForm.category & dataForm.priority;
+    //     // console.log('ddd', ddd);
+
+    //     const submitDataForm = Object.values(dataForm);
+    //     console.log('submitDataForm', submitDataForm);
+
+    //     // for (const param of submitDataForm) {
+    //     //     if (!dataForm[param]) {
+    //     //         setIsSubmitForm(true);
+    //     //     } else setIsSubmitForm(false);
+    //     // }
+    // }
 
     const handlerToggleCalendar = () => {
         setShowCalendar(!showCalendar);
@@ -123,6 +130,7 @@ const FormEvent = ({ initialValues = initialDataForFormCreate }) => {
         <Formik 
             initialValues={initialValues}
             onSubmit={handlerCreateEvent}
+            validateOnMount={true}
             validationSchema={Yup.object().shape({
                 title: Yup.string()
                     .max(30, "Must be at most 30 characters")
@@ -169,7 +177,10 @@ const FormEvent = ({ initialValues = initialDataForFormCreate }) => {
         >
         {(props) => {
             const { values, errors, touched, handleChange, setFieldTouched, setFieldValue } = props;
-            console.log('errors.title', errors.title);
+            // const { values, errors, touched, handleChange, setFieldTouched, setFieldValue, dirty, isValid, isSubmitting , isValidating, isInitialValid, validateOnMount } = props;
+            // console.log('validateOnMount', validateOnMount);
+            // console.log('isValidating', isValidating);
+            // console.log(touched.constructor);
             return (
                 <Form className={scss.form}>
                     <div className={scss.formContainer}>
@@ -177,11 +188,10 @@ const FormEvent = ({ initialValues = initialDataForFormCreate }) => {
                         <label className={scss.labelInput} htmlFor="title">Title
                             <Field 
                                 onChange={event => {
+                                    // console.log(event.target.value);
+                                    // setFieldValue('title', event.target.value);
                                     setFieldTouched('title');
                                     handleChange(event);
-                                    // setTimeout(() => {
-                                    //     handlerIsDataSubmit(values);
-                                    // }, 1000);
                                     // handlerIsDataSubmit(values);
                                 }}
                                 className={[scss.input, errors.title && touched.title && scss.inputInvalid].join(" ")} 
@@ -197,9 +207,9 @@ const FormEvent = ({ initialValues = initialDataForFormCreate }) => {
                         <label className={[scss.labelInput, scss.labelInputTitle].join(" ")} htmlFor="description">Description
                             <Field as="textarea"
                                 onChange={(event) => {
+                                    // setFieldValue('title', event.target.value);
                                     setFieldTouched('description');
                                     handleChange(event);
-                                    // handlerIsDataSubmit(values);
                                 }}
                                 className={[scss.inputArea, errors.description && touched.description && scss.inputInvalid].join(" ")} 
                                 type="text" name="description" placeholder=" " />
@@ -240,9 +250,8 @@ const FormEvent = ({ initialValues = initialDataForFormCreate }) => {
 
                                             await setFieldValue("date", newValue);
 
-                                            await setFieldTouched('date');
-                                            handleChange(event);
-                                            // handlerIsDataSubmit(values);
+                                            // await setFieldTouched('date');
+                                            // handleChange(event);
                                         } catch (error) {
                                             console.log(error);
                                         }
@@ -275,7 +284,6 @@ const FormEvent = ({ initialValues = initialDataForFormCreate }) => {
                                             setFieldValue('date', await formatDate(date));
                                             // setFieldValue('date', date);
                                             setDateCalendar(date);
-                                            // handlerIsDataSubmit(values);
                                         }} 
                                         locale="en-En"
                                         calendarType="hebrew"
@@ -397,7 +405,6 @@ const FormEvent = ({ initialValues = initialDataForFormCreate }) => {
                                         await setFieldValue('time', value._d); // *._d Moment
                                         setShowTimePicker(true);
                                         setIsValue(true);
-                                        // handlerIsDataSubmit(values);
                                     }}
                                     format="hh:mm a"
                                     placeholder="Select Date"
@@ -487,49 +494,22 @@ const FormEvent = ({ initialValues = initialDataForFormCreate }) => {
                                         <use id="chevron-down-small" href={`${sprite}#chevron-down-small`} />
                                     </svg>
                                 }
-                                onChange={(newValue) => setFieldValue('priority', newValue.value)} 
+                                onChange={(newValue) => setFieldValue('priority', newValue.value)}
+                                // onChange={(newValue) => {
+                                    // setFieldValue('priority', newValue.value);
+                                    // handlerIsDataSubmit(values);
+                                // }} 
                                 value={values.priority} 
                                 placeholder="Select Priority"
                             />
                         </label>
 
                     </div>
-                    {/* <Button styles={[scss.buttonSubmit, isSubmitForm && scss.buttonSubmitDisable].join(" ")} text="Add event" type="submit" disabled={isSubmitForm}/> */}
-                    <Button styles={[scss.buttonSubmit,
-                            errors.title &&
-                            errors.description &&
-                            errors.date && 
-                            errors.time && 
-                            errors.location && 
-                            errors.category && 
-                            errors.priority && 
-
-                            // errors.title === undefined &&
-                            // errors.description === undefined &&
-                            // errors.date === undefined && 
-                            // errors.time === undefined && 
-                            // errors.location === undefined && 
-                            // errors.category === undefined && 
-                            // errors.priority === undefined && 
-                            scss.buttonSubmitDisable].join(" ")} 
-                        text="Add event" type="submit" 
-                        disabled={
-                                errors.title && 
-                                errors.description && 
-                                errors.date && 
-                                errors.time && 
-                                errors.location && 
-                                errors.category && 
-                                errors.priority
-
-                                // errors.title === undefined && 
-                                // errors.description === undefined  && 
-                                // errors.date === undefined && 
-                                // errors.time === undefined && 
-                                // errors.location === undefined && 
-                                // errors.category === undefined && 
-                                // errors.priority === undefined
-                            }/>
+                    <Button styles={scss.buttonSubmit} text="Add event" type="submit"/>
+                    {/* <Button styles={[scss.buttonSubmit, !dirty && !isValid  && scss.buttonSubmitDisable].join(" ")} text="Add event" type="submit" disabled={!dirty && !isValid}/> */}
+                    {/* <Button styles={[scss.buttonSubmit, !isValid || isSubmitting || (Object.keys(touched).length === 0 && touched.constructor === Object)  && scss.buttonSubmitDisable].join(" ")} text="Add event" type="submit" disabled={!isValid || isSubmitting || (Object.keys(touched).length === 0 && touched.constructor === Object)}/> */}
+                    {/* <Button styles={[scss.buttonSubmit, (!isValid || (Object.keys(touched).length === 0 && touched.constructor === object)) && scss.buttonSubmitDisable].join(" ")} text="Add event" type="submit" disabled={!isValid || (Object.keys(touched).length === 0 && touched.constructor === object)}/> */}
+                    {/* <Button styles={[scss.buttonSubmit, !isSubmitForm && scss.buttonSubmitDisable].join(" ")} text="Add event" type="submit" disabled={!isSubmitForm}/> */}
                 </Form>
             )}
         }

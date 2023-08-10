@@ -2,18 +2,21 @@ import { useEffect, useState, useCallback } from 'react';
 import { NavLink, useParams, useNavigate } from "react-router-dom";
 import Button from '../../components/button/Button';
 
+import { useSelector, useDispatch } from "react-redux";
+import { eventsSelector } from '../../redux/selectors';
+
 import sprite from '../../images/sprite.svg';
 
 import scss from './EventDetails.module.scss';
 
-import db from '../../assets/db/eventList';
 import constants from '../../assets/constants/resolutionPoints';
 
 const EventDetails = () => {
-    const [eventList, setEventList] = useState([]);
-    // const [eventItem, setEventItem] = useState();
+    const [eventItem, setEventItem] = useState();
     const { eventId } = useParams();
-    // console.log('eventId', eventId);
+
+    const eventsStore = useSelector(eventsSelector);
+    const dispatch = useDispatch();
 
     const [isLandscape, setIsLandscape] = useState(true);
     const [dimensions, setDimensions] = useState({ 
@@ -46,12 +49,13 @@ const EventDetails = () => {
     }, [dimensions.width, setIsLandscape]);
 
     useEffect(() => {
-        setEventList(db);
+        const eventItem = eventsStore.filter((item) => item.id.toString() === eventId)[0];
+        setEventItem(eventItem);
     }, []);
 
     const handlerEventEdit = () => {
         console.log('handlerEventEdit');
-        navigate('/');
+        // navigate('/');
     }
 
     return(
@@ -70,10 +74,10 @@ const EventDetails = () => {
 
                         <h2 className={scss.title}>Galery Opening</h2>
 
-                        {eventList[eventId-1] &&
+                        {eventItem &&
                             <div className={scss.detailsInfo}>
-                                {eventList[eventId-1].picture ?
-                                    <img className={scss.eventPicture} src={eventList[eventId-1].picture} alt={eventList[eventId-1].title} title={eventList[eventId-1].title} width="272"/>
+                                {eventItem.picture ?
+                                    <img className={scss.eventPicture} src={eventItem.picture} alt={eventItem.title} title={eventItem.title} width="272"/>
                                     :
                                     <div className={scss.eventDefaultImage}>
                                         {isLandscape ?
@@ -88,18 +92,18 @@ const EventDetails = () => {
                                     </div>
                                 }
                                 <div className={scss.eventInfo}>
-                                    <p className={scss.eventDescription}>{eventList[eventId-1].description}</p>
+                                    <p className={scss.eventDescription}>{eventItem.description}</p>
                                     <span className={scss.eventRating}>
-                                        <span className={scss.eventCategory}>{eventList[eventId-1].category}</span>
+                                        <span className={scss.eventCategory}>{eventItem.category}</span>
                                         {
-                                            eventList[eventId-1].priority === 'High' ? <span className={scss.eventPriorityHigh}>{eventList[eventId-1].priority}</span>
+                                            eventItem.priority === 'High' ? <span className={scss.eventPriorityHigh}>{eventItem.priority}</span>
                                             :
-                                            eventList[eventId-1].priority === 'Medium' ? <span className={scss.eventPriorityMedium}>{eventList[eventId-1].priority}</span>
+                                            eventItem.priority === 'Medium' ? <span className={scss.eventPriorityMedium}>{eventItem.priority}</span>
                                             :
-                                            <span className={scss.eventPriorityLow}>{eventList[eventId-1].priority}</span>
+                                            <span className={scss.eventPriorityLow}>{eventItem.priority}</span>
                                         }
-                                        <span className={scss.eventLocation}>{eventList[eventId-1].location}</span>
-                                        <span className={scss.eventDateTime}>{`${eventList[eventId-1].date} at ${eventList[eventId-1].time} am`}</span>
+                                        <span className={scss.eventLocation}>{eventItem.location}</span>
+                                        <span className={scss.eventDateTime}>{`${eventItem.date} at ${eventItem.time} am`}</span>
                                     </span>
                                     <div className={scss.actions}>
                                         <NavLink className={scss.eventEdit} to={`/edit/${eventId}`}>Edit</NavLink>
@@ -108,6 +112,7 @@ const EventDetails = () => {
                                 </div>
                             </div>
                         }
+
                     </div>
                     
                 </div>

@@ -1,37 +1,18 @@
-import { useEffect, useState } from 'react';
-import { Link, NavLink, useNavigate } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import SelectCategory from '../../components/selectCategory/SelectCategory';
 import SelectSortBy from '../../components/selectSortBy/SelectSortBy';
-import Button from '../../components/button/Button';
 import Pagination from '../../components/pagination/Pagination';
+
+import { useSelector } from "react-redux";
+import { eventsSelectorLimit, selectEventsSearch } from '../../redux/selectors';
 
 import sprite from '../../images/sprite.svg';
 
 import scss from './EventList.module.scss';
 
-import db from '../../assets/db/eventList';
-
 const EventList = () => {
-    const [eventList, setEventList] = useState([]);
-    // const [itemsPerPage, setItemsPerPage] = useState(6);
-    // const [currentEventList, setCurrentEventList] = useState([]);
-
-    const navigate = useNavigate();
-
-    useEffect(() => {
-        setEventList(db);
-    }, []);
-
-    const handlerShowMoreInfo = (eventItem) => {
-        console.log('showMoreInfo eventItem', eventItem);
-        // navigate('/details', { replace: true });
-        navigate('/details');
-    }
-    
-    // const initCurrentItemsHandler = (currentItems) => {
-    //     console.log('initCurrentItemsHandler currentItems',currentItems);
-    //     setCurrentEventList(currentItems);
-    // }
+    const eventsStore = useSelector(selectEventsSearch);
+    const eventsStoreLimit = useSelector(eventsSelectorLimit);
 
     return(
         <section className={scss.eventSection}>
@@ -60,8 +41,8 @@ const EventList = () => {
                     <h2 className={scss.title}>My events</h2>
 
                     <ul className={scss.eventList}>
-                        {!!eventList.length &&
-                            eventList.map((item) => 
+                        {!!eventsStoreLimit.length &&
+                            eventsStoreLimit.map((item) =>
                                 <li className={scss.eventItem} key={item.id}>
                                     <div className={scss.eventRating}>
                                         <span className={scss.eventCategory}>{item.category}</span>
@@ -89,8 +70,6 @@ const EventList = () => {
                                             <h2 className={scss.eventTitle}>{item.title}</h2>
                                             <p className={scss.eventDescription}>{item.description}</p>
                                             
-                                            {/* <Button styles={scss.eventButton} onClick={() => handlerShowMoreInfo(item)} text="More info"/> */}
-                                            {/* <NavLink className={scss.eventButton} to={{ pathname: `/details/${item.id}`, propsSearch: item }}>More info</NavLink> */}
                                             <NavLink className={scss.eventButton} to={`/details/${item.id}`}>More info</NavLink>
                                         </div>
                                     </div>
@@ -99,9 +78,7 @@ const EventList = () => {
                         }
                     </ul>
 
-                    {/* <Pagination items={eventList} itemsPerPage={1} currentItemsHandler={initCurrentItemsHandler}/> */}
-
-                    <Pagination items={eventList} />
+                    <Pagination items={eventsStore}/>
 
                 </div>
             </div>
