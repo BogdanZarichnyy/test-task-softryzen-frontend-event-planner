@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Field, Form, Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import InputMask from 'react-input-mask';
@@ -20,13 +20,15 @@ import 'rc-time-picker/assets/index.css';
 
 import moment from 'moment';
 
+import { useDispatch } from "react-redux";
+import { createEvent, editEvent } from '../../redux/slices/eventsSlice';
+
 import sprite from '../../images/sprite.svg';
 
 import scss from './FormEvent.module.scss';
 
 import optionCategory from '../../assets/options/category';
 import priorityOptions from '../../assets/options/priority';
-import { object } from 'prop-types';
 
 const initialDataForFormCreate = {
     title: '',
@@ -41,7 +43,7 @@ const initialDataForFormCreate = {
     updateAt: new Date(),
 }
 
-const FormEvent = ({ initialValues = initialDataForFormCreate }) => {
+const FormEvent = ({ textForButton, action = "createEvent", initialValues = initialDataForFormCreate }) => {
     const [showCalendar, setShowCalendar] = useState(false);
     const [dateCalendar, setDateCalendar] = useState(new Date());
     const [showTimePicker, setShowTimePicker] = useState(false);
@@ -49,28 +51,31 @@ const FormEvent = ({ initialValues = initialDataForFormCreate }) => {
 
     // const [isSubmitForm, setIsSubmitForm] = useState(true);
     const [isSubmitForm, setIsSubmitForm] = useState(false);
+    const { eventId } = useParams();
 
     const categoryOptions = optionCategory.map((item) => item.value);
 
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     const handlerCreateEvent = (values, actions) => {
-        console.log(values);
-
-        // const submitDataForm = Object.keys(values)
-        //     .filter((item) => item === 'createAt' ? null : item === 'updateAt' ? null : item === 'picture' ? null : item);
-        // console.log(submitDataForm);
-
-        // for (const param of submitDataForm) {
-        //     if (!values[param]) {
-        //         setIsSubmitForm(true);
-        //     } else setIsSubmitForm(false);
-        // }
-
-        actions.setSubmitting(false);
-        actions.resetForm();
+        // console.log(values);
         
-        // navigate('/');
+        if (action === "createEvent") {
+            dispatch(createEvent(values));
+            actions.setSubmitting(false);
+            actions.resetForm();
+            navigate('/');
+        } else if (action === "editEvent" & eventId !== null) {
+            const event = {
+                ...values,
+                id: eventId
+            };
+            dispatch(editEvent(event));
+            actions.setSubmitting(false);
+            actions.resetForm();
+            navigate(`/details/${eventId}`);
+        }
     }
 
     // const handlerIsDataSubmit = (dataForm) => {
@@ -110,20 +115,24 @@ const FormEvent = ({ initialValues = initialDataForFormCreate }) => {
         const month = date.getMonth() + 1;
         const year = date.getFullYear();
         const result = day.toString().padStart(2, '0') + '.' + month.toString().padStart(2, '0') + '.' + year;
+        return result;
+    }
 
+    const getEditTimeForTimePicker = (value = new Date()) => {
+        const date = new Date(value);
+        const hours = date.getHours();
+        const minutes = date.getMinutes();
+        // const result = moment().hour(hours).minute(minutes).utc();
+        const result = moment().hour(hours).minute(minutes).utcOffset(0);
         return result;
     }
 
     const getTimeForTimePicker = (value = new Date()) => {
-        if (typeof value !== "object") {
-            return value;
-        } 
         const date = new Date(value);
         const hours = date.getHours();
         const minutes = date.getMinutes();
-        const time = moment().hour(hours).minute(minutes);
-
-        return time;
+        const result = moment().hour(hours).minute(minutes);
+        return result;
     }
 
     return(
@@ -147,7 +156,6 @@ const FormEvent = ({ initialValues = initialDataForFormCreate }) => {
                     .nonNullable(),
                 // date: Yup.date(),
                 //     .min(new Date()),
-                // time: Yup.string(),
                 time: Yup.date()
                     .nonNullable(),
                     // .optional()
@@ -163,8 +171,8 @@ const FormEvent = ({ initialValues = initialDataForFormCreate }) => {
                     // .nullable(''),
                     .nonNullable(),
                 picture: Yup.string()
-                    .url()
-                    .matches(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/, "Invalid input")
+                    // .url()
+                    // .matches(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/, "Invalid input")
                     .optional()
                     .nullable(''),
                 priority: Yup.mixed().oneOf(priorityOptions)
@@ -281,7 +289,7 @@ const FormEvent = ({ initialValues = initialDataForFormCreate }) => {
                                         defaultValue={dateCalendar}
                                         // onChange={(date, event) => console.log(date)}
                                         onClickDay={async (date) => {
-                                            setFieldValue('date', await formatDate(date));
+                                            await setFieldValue('date', formatDate(date));
                                             // setFieldValue('date', date);
                                             setDateCalendar(date);
                                         }} 
@@ -396,13 +404,16 @@ const FormEvent = ({ initialValues = initialDataForFormCreate }) => {
                             >
                                 <TimePicker 
                                     showSecond={false}
-                                    defaultOpenValue={getTimeForTimePicker()}
+                                    // defaultOpenValue={getTimeForTimePicker()}
+                                    defaultOpenValue={values.time !== '' ? getEditTimeForTimePicker(values.time) : getTimeForTimePicker() }
                                     defaultValue={null}
                                     className={scss.timePicker}
                                     open={showTimePicker}
                                     onChange={async (value) => {
                                         // console.log(value._d);  // *._d Moment
                                         await setFieldValue('time', value._d); // *._d Moment
+                                        // const date = new Date(value._d);
+                                        // await setFieldValue('time', date); // *._d Moment
                                         setShowTimePicker(true);
                                         setIsValue(true);
                                     }}
@@ -505,11 +516,11 @@ const FormEvent = ({ initialValues = initialDataForFormCreate }) => {
                         </label>
 
                     </div>
-                    <Button styles={scss.buttonSubmit} text="Add event" type="submit"/>
-                    {/* <Button styles={[scss.buttonSubmit, !dirty && !isValid  && scss.buttonSubmitDisable].join(" ")} text="Add event" type="submit" disabled={!dirty && !isValid}/> */}
-                    {/* <Button styles={[scss.buttonSubmit, !isValid || isSubmitting || (Object.keys(touched).length === 0 && touched.constructor === Object)  && scss.buttonSubmitDisable].join(" ")} text="Add event" type="submit" disabled={!isValid || isSubmitting || (Object.keys(touched).length === 0 && touched.constructor === Object)}/> */}
-                    {/* <Button styles={[scss.buttonSubmit, (!isValid || (Object.keys(touched).length === 0 && touched.constructor === object)) && scss.buttonSubmitDisable].join(" ")} text="Add event" type="submit" disabled={!isValid || (Object.keys(touched).length === 0 && touched.constructor === object)}/> */}
-                    {/* <Button styles={[scss.buttonSubmit, !isSubmitForm && scss.buttonSubmitDisable].join(" ")} text="Add event" type="submit" disabled={!isSubmitForm}/> */}
+                    <Button styles={scss.buttonSubmit} text={textForButton} type="submit"/>
+                    {/* <Button styles={[scss.buttonSubmit, !dirty && !isValid  && scss.buttonSubmitDisable].join(" ")} text={textForButton} type="submit" disabled={!dirty && !isValid}/> */}
+                    {/* <Button styles={[scss.buttonSubmit, !isValid || isSubmitting || (Object.keys(touched).length === 0 && touched.constructor === Object)  && scss.buttonSubmitDisable].join(" ")} text={textForButton} type="submit" disabled={!isValid || isSubmitting || (Object.keys(touched).length === 0 && touched.constructor === Object)}/> */}
+                    {/* <Button styles={[scss.buttonSubmit, (!isValid || (Object.keys(touched).length === 0 && touched.constructor === object)) && scss.buttonSubmitDisable].join(" ")} text={textForButton} type="submit" disabled={!isValid || (Object.keys(touched).length === 0 && touched.constructor === object)}/> */}
+                    {/* <Button styles={[scss.buttonSubmit, !isSubmitForm && scss.buttonSubmitDisable].join(" ")} text={textForButton} type="submit" disabled={!isSubmitForm}/> */}
                 </Form>
             )}
         }

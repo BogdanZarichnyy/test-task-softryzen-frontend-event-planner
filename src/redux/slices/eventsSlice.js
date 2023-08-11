@@ -1,18 +1,18 @@
-import { createSlice, nanoid } from "@reduxjs/toolkit";
+import { createSlice, nanoid, current  } from "@reduxjs/toolkit";
 import initialData from '../../assets/db/eventList';
 
 const eventsSlice = createSlice({
-    name: "contactsSlice",
+    name: "eventsSlice",
     initialState: {
         events: initialData,
     },
     reducers: {
 
-        addEvent: {
+        createEvent: {
             reducer(state, action) {
-                state.events.push(action.payload);
+                state.events = [...current(state.events), action.payload];
             },
-            prepare(title, description, date, time, location, category, picture, priority, createAt, updateAt) {
+            prepare({ title, description, date, time, location, category, picture, priority, createAt, updateAt }) {
                 return {
                     payload: {
                         id: nanoid(),
@@ -33,7 +33,9 @@ const eventsSlice = createSlice({
 
         deleteEvent: {
             reducer(state, action) {
-                state.events = state.events.filter(event => event.id !== action.payload);
+                // console.log(current(state.events));
+                // state.events = state.events.filter(event => event.id !== action.payload);
+                state.events = current(state.events).filter(event => event.id !== action.payload);
             },
             prepare(id) {
                 return {
@@ -44,21 +46,23 @@ const eventsSlice = createSlice({
 
         editEvent: {
             reducer(state, action) {
-                state.events = state.events.filter(event => event.id !== action.payload);
+                state.events = [...current(state.events).filter(event => event.id !== action.payload.id), action.payload];
             },
-            prepare(id, title, description, date, time, location, category, picture, priority, createAt, updateAt) {
+            prepare({ id, title, description, date, time, location, category, picture, priority, createAt, updateAt }) {
                 return {
-                    id,
-                    title,
-                    description,
-                    date,
-                    time,
-                    location,
-                    category,
-                    picture,
-                    priority,
-                    createAt,
-                    updateAt,
+                    payload: {
+                        id,
+                        title,
+                        description,
+                        date,
+                        time,
+                        location,
+                        category,
+                        picture,
+                        priority,
+                        createAt,
+                        updateAt,
+                    }
                 }
             }
         },
@@ -66,5 +70,5 @@ const eventsSlice = createSlice({
     }
 });
 
-export const { addEvent, deleteEvent, editEvent } = eventsSlice.actions;
+export const { createEvent, deleteEvent, editEvent } = eventsSlice.actions;
 export const reducerEvents = eventsSlice.reducer;

@@ -5,12 +5,12 @@ import { reducerSearch } from './slices/searchSlice';
 import {
     persistStore,
     persistReducer,
-    FLUSH,
-    REHYDRATE,
-    PAUSE,
-    PERSIST,
-    PURGE,
-    REGISTER,
+    // FLUSH,
+    // REHYDRATE,
+    // PAUSE,
+    // PERSIST,
+    // PURGE,
+    // REGISTER,
 } from "redux-persist";
 
 import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
@@ -31,9 +31,10 @@ export const store = configureStore({
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
-            serializableCheck: {
-                ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-            },
+            serializableCheck: false
+            // serializableCheck: {
+            //     ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+            // },
         }),
     devTools: process.env.NODE_ENV === 'development',
 })

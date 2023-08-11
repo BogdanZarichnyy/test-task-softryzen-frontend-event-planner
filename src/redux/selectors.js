@@ -2,6 +2,8 @@ import { createSelector } from "@reduxjs/toolkit";
 
 export const eventsSelector = state => state.events.events;
 export const searchSelector = state => state.search.search;
+export const categorySelector = state => state.search.category;
+export const prioritySelector = state => state.search.priority;
 export const pageSelector = state => state.search.page;
 export const limitSelector = state => state.search.limit;
 

@@ -20,7 +20,7 @@ const EventCreate = () => {
 
                     <h2 className={scss.title}>Create new event</h2>
 
-                    <FormEvent />
+                    <FormEvent textForButton="Add event" action="createEvent"/>
 
                 </div>
             </div>

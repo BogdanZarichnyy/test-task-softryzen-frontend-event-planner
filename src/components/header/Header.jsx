@@ -27,10 +27,10 @@ const Header = () => {
     const searchQuery = searchParams.get('search') ?? '';
     const categoryQuery = categoryParams.get('category') ?? '';
     const priorityQuery = priorityParams.get('priority') ?? '';
-    console.log('page', pageQuery);
-    console.log('search', searchQuery);
-    console.log('category', categoryQuery);
-    console.log('priority', priorityQuery);
+    // console.log('page', pageQuery);
+    // console.log('search', searchQuery);
+    // console.log('category', categoryQuery);
+    // console.log('priority', priorityQuery);
 
 
 

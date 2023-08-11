@@ -14,6 +14,28 @@ const EventList = () => {
     const eventsStore = useSelector(selectEventsSearch);
     const eventsStoreLimit = useSelector(eventsSelectorLimit);
 
+    const formatDate = (dateData) => {
+        // console.log(dateData);
+        const date = dateData.replace(/^(\d{2})(\.)(\d{2})(\.)(\d{4})$/, '$5\-$3\-$1');
+        const dateFormat = new Date(date);
+        // console.log(dateFormat);
+        const day = dateFormat.getDate();
+        const month = dateFormat.getMonth() + 1;
+        const result = day.toString().padStart(2, '0') + '.' +  month.toString().padStart(2, '0');
+        return result;
+    }
+
+    const formatTime = (timeData) => {
+        // console.log(timeData);
+        const time = new Date(timeData);
+        const hours = time.getHours();
+        const minutes = time.getMinutes();
+        // const hours = time.getUTCHours();
+        // const minutes = time.getUTCMinutes();
+        const result = hours.toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0');
+        return result;
+    }
+
     return(
         <section className={scss.eventSection}>
             <div className='container'>
@@ -63,7 +85,7 @@ const EventList = () => {
                                     }
                                     <div className={scss.eventPositionInfo}>
                                         <div className={scss.eventArea}>
-                                            <span className={scss.eventDateTime}>{`${item.date} at ${item.time}`}</span>
+                                            <span className={scss.eventDateTime}>{`${formatDate(item.date)} at ${formatTime(item.time)}`}</span>
                                             <span className={scss.eventLocation}>{item.location}</span>
                                         </div>
                                         <div className={scss.eventInfo}>

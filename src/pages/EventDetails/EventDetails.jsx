@@ -3,6 +3,7 @@ import { NavLink, useParams, useNavigate } from "react-router-dom";
 import Button from '../../components/button/Button';
 
 import { useSelector, useDispatch } from "react-redux";
+import { deleteEvent } from '../../redux/slices/eventsSlice';
 import { eventsSelector } from '../../redux/selectors';
 
 import sprite from '../../images/sprite.svg';
@@ -53,12 +54,41 @@ const EventDetails = () => {
         setEventItem(eventItem);
     }, []);
 
-    const handlerEventEdit = () => {
-        console.log('handlerEventEdit');
-        // navigate('/');
+    const handlerEventDelete = (eventItemId) => {
+        dispatch(deleteEvent(eventItemId));
+        navigate('/');
     }
 
-    return(
+    const formatDate = (dateData) => {
+        // console.log(dateData);
+        const date = dateData.replace(/^(\d{2})(\.)(\d{2})(\.)(\d{4})$/, '$5\-$3\-$1');
+        const dateFormat = new Date(date);
+        // console.log(dateFormat);
+        const day = dateFormat.getDate();
+        const month = dateFormat.getMonth() + 1;
+        const result = day.toString().padStart(2, '0') + '.' +  month.toString().padStart(2, '0');
+        return result;
+    }
+
+    const formatTime = (timeData) => {
+        // console.log(timeData);
+        const time = new Date(timeData);
+        // const hours = time.getUTCHours();
+        // const minutes = time.getUTCMinutes();
+        let hours = time.getHours();
+        const minutes = time.getMinutes();
+
+        if (hours > 12) {
+            hours -= 12;
+            const result = hours.toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0') + ' pm';
+            return result;
+        } else {
+            const result = hours.toString().padStart(2, '0') + ':' + minutes.toString().padStart(2, '0') + ' am';
+            return result;
+        }
+    }
+
+    return (
         <section className={scss.eventDetails}>
             <div className='container'>
                 <div className={scss.wrraper}>
@@ -103,11 +133,11 @@ const EventDetails = () => {
                                             <span className={scss.eventPriorityLow}>{eventItem.priority}</span>
                                         }
                                         <span className={scss.eventLocation}>{eventItem.location}</span>
-                                        <span className={scss.eventDateTime}>{`${eventItem.date} at ${eventItem.time} am`}</span>
+                                        <span className={scss.eventDateTime}>{`${formatDate(eventItem.date)} at ${formatTime(eventItem.time)}`}</span>
                                     </span>
                                     <div className={scss.actions}>
                                         <NavLink className={scss.eventEdit} to={`/edit/${eventId}`}>Edit</NavLink>
-                                        <Button styles={scss.buttonEdit} text="Delete event" onClick={handlerEventEdit}/>
+                                        <Button styles={scss.buttonEdit} text="Delete event" onClick={() => handlerEventDelete(eventItem.id)}/>
                                     </div>
                                 </div>
                             </div>

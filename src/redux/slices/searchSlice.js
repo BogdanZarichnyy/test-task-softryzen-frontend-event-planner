@@ -4,6 +4,8 @@ const searchSlice = createSlice({
     name: "searchSlice",
     initialState: {
         search: '',
+        category: '',
+        priority: '',
         page: 1,
         limit: 6,
     },
@@ -20,9 +22,31 @@ const searchSlice = createSlice({
             }
         },
 
+        categoryEvents: {
+            reducer( state, action) {
+                state.category = action.payload;
+            },
+            prepare(category) {
+                return {
+                    payload: category,
+                }
+            }
+        },
+
+        priorityEvents: {
+            reducer( state, action) {
+                state.priority = action.payload;
+            },
+            prepare(priority) {
+                return {
+                    payload: priority,
+                }
+            }
+        },
+
         pageEvents: {
             reducer( state, action) {
-                console.log(state.page); // приходить якась бредятина
+                // console.log(state.page); // приходить якась бредятина
                 state.page = action.payload;
             },
             prepare(page) {
