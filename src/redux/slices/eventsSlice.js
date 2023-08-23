@@ -33,8 +33,6 @@ const eventsSlice = createSlice({
 
         deleteEvent: {
             reducer(state, action) {
-                // console.log(current(state.events));
-                // state.events = state.events.filter(event => event.id !== action.payload);
                 state.events = current(state.events).filter(event => event.id !== action.payload);
             },
             prepare(id) {

@@ -7,7 +7,7 @@ import OptionIconDescending from './optionIcon/optionIconDescending/OptionIconDe
 
 import options from '../../assets/options/sortBy';
 
-const SelectSortBy = () => {
+const SelectSortBy = ({ setUrlParams, urlParams, params }) => {
     const [currentSortBy, setCurrentSortBy] = useState();
     const [selectIcon, setSelectIcon] = useState(null);
 
@@ -24,6 +24,9 @@ const SelectSortBy = () => {
     // }, []);
 
     const getValueSortBy = () => {
+        if (currentSortBy === 'default') {
+            return 'Sort by';
+        }
         return currentSortBy ? options.find(sortBy => sortBy.value === currentSortBy) : '';
     }
 
@@ -38,6 +41,21 @@ const SelectSortBy = () => {
             setSelectIcon(null);
         }
 
+        if (newValue.value === 'default') {
+            const pageQuery = urlParams.get('page');
+            const searchQuery = urlParams.get('search');
+            const categoryQuery = urlParams.get('category');
+            // const sortByQuery = urlParams.get('sortBy');
+            let dataUrlParams = {
+                ...(pageQuery ? {page: pageQuery} : null),
+                ...(searchQuery ? {search: searchQuery} : null),
+                ...(categoryQuery ? {category: categoryQuery} : null),
+                // ...(sortByQuery ? {sortBy: sortByQuery} : null),
+            };
+            setUrlParams({ ...dataUrlParams });
+        } else {
+            setUrlParams({ ...params, sortBy: newValue.value });
+        }
         setCurrentSortBy(newValue.value);
     }
 

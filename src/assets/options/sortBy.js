@@ -1,5 +1,5 @@
 const sortByOptions = [
-    // { value: 'default', label: 'Default sort' },
+    { value: 'default', label: 'Default sort' },
     { value: 'by name ascending', label: 'by name' },
     { value: 'by name descending', label: 'by name' },
     { value: 'by data ascending', label: 'by data' },

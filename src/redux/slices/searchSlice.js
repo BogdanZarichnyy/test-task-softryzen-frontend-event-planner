@@ -5,7 +5,7 @@ const searchSlice = createSlice({
     initialState: {
         search: '',
         category: '',
-        priority: '',
+        sortBy: '',
         page: 1,
         limit: 6,
     },
@@ -33,13 +33,13 @@ const searchSlice = createSlice({
             }
         },
 
-        priorityEvents: {
+        sortByEvents: {
             reducer( state, action) {
-                state.priority = action.payload;
+                state.sortBy = action.payload;
             },
-            prepare(priority) {
+            prepare(sortBy) {
                 return {
-                    payload: priority,
+                    payload: sortBy,
                 }
             }
         },
@@ -69,5 +69,5 @@ const searchSlice = createSlice({
     }
 });
 
-export const { searchEvents, pageEvents, limitEvents } = searchSlice.actions;
+export const { searchEvents, categoryEvents, sortByEvents, pageEvents, limitEvents } = searchSlice.actions;
 export const reducerSearch = searchSlice.reducer;

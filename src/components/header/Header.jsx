@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react';
-import { NavLink, useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { Field, Form, Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
-import { useSelector, useDispatch } from "react-redux";
-import { searchEvents } from '../../redux/slices/searchSlice';
-import { pageSelector } from '../../redux/selectors';
+import { useDispatch } from "react-redux";
+import { searchEvents, pageEvents, categoryEvents, sortByEvents } from '../../redux/slices/searchSlice';
+
 
 import SelectLanguage from '../selectLanguage/SelectLanguage';
 
@@ -16,76 +15,27 @@ import scss from './Header.module.scss';
 const Header = () => {   
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const location = useLocation();
-    const eventsStorePage = useSelector(pageSelector);
-
-    const [pageParams, setPageParams] = useSearchParams();
-    const [searchParams, setSearchParams] = useSearchParams();
-    const [categoryParams, setCategoryParams] = useSearchParams();
-    const [priorityParams, setPriorityParams] = useSearchParams();
-    const pageQuery = pageParams.get('page') ?? '1';
-    const searchQuery = searchParams.get('search') ?? '';
-    const categoryQuery = categoryParams.get('category') ?? '';
-    const priorityQuery = priorityParams.get('priority') ?? '';
-    // console.log('page', pageQuery);
-    // console.log('search', searchQuery);
-    // console.log('category', categoryQuery);
-    // console.log('priority', priorityQuery);
-
-
-
-
-    // useEffect(() => {
-    //     const data = {
-    //         search: searchQuery,
-    //         category: categoryQuery,
-    //         priority: priorityQuery,
-    //     }
-    //     const paramsData = Object.keys(data);
-    //     let params = '';
-    //     for (const param of paramsData) {
-    //         params += param + '=' + data[param];
-    //     }
-
-    //     dispatch(searchEvents(searchQuery));
-    //     // !searchQuery ? navigate(`/?page=${eventsStorePage}`) : navigate(`/?${params}`);
-    //     // !searchQuery ? navigate(`/?${params}`) : navigate(`/?${params}`);
-    //     // !searchQuery ? navigate(`/?page=${pageQuery}`) : navigate(`/?page=${pageQuery}&${params}`);
-    //     !searchQuery ? navigate(`/?page=${eventsStorePage}`) : navigate(`/?page=${eventsStorePage}${params}`);
-    // }, [dispatch, navigate, searchQuery]);
-
-
-
-
 
     const handlerOnSearch= (values, actions) => {
-        console.log('values.search', values.search);
-        
+        // console.log('values.search', values.search);
+
         if(!values.search) {
-            dispatch(searchEvents(values.search));
-            navigate('/');
+            dispatch(pageEvents(1));
+            dispatch(searchEvents(''));
+            dispatch(categoryEvents(''));
+            dispatch(sortByEvents(''));
+
+            navigate('/?page=1');
         } else {
-            dispatch(searchEvents(values.search));
-        
-            const data = {
-                search: values.search,
-            }
-            const paramsData = Object.keys(data);
-            // console.log('paramsData', paramsData);
-            let params = '';
-            for (const param of paramsData) {
-                // console.log('param', param);
-                params += param + '=' + data[param];
-            }
-            // console.log('params', params);
-            actions.setSubmitting(false);
-            actions.resetForm();
-            
-            // navigate(`${location.pathname}?search=${values.search}`);
-            // navigate(`/?search=${data.search}`);
-            // navigate(`${location.pathname}?${params}`);
-            navigate(`/?${params}`);
+            dispatch(pageEvents(1));
+            dispatch(searchEvents(values.search.toLowerCase()));
+            dispatch(categoryEvents(''));
+            dispatch(sortByEvents(''));
+
+            navigate(`/?page=1&search=${values.search}`);
         }
+        actions.setSubmitting(false);
+        actions.resetForm();
     }
 
     return(
@@ -93,8 +43,7 @@ const Header = () => {
             <div className='container'>
                 <nav className={scss.wrraper}>
 
-                    <NavLink className={scss.logo} to="/" end>Event Planner</NavLink>
-                    {/* <NavLink className={scss.logo} to={!searchQuery ? '/' : `/?search=${searchQuery}`} end>Event Planner</NavLink> */}
+                    <NavLink className={scss.logo} to="/?page=1" end>Event Planner</NavLink>
 
                     <SelectLanguage />
 

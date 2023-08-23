@@ -50,7 +50,7 @@ const FormEvent = ({ textForButton, action = "createEvent", initialValues = init
     const [isValue, setIsValue] = useState(false);
 
     // const [isSubmitForm, setIsSubmitForm] = useState(true);
-    const [isSubmitForm, setIsSubmitForm] = useState(false);
+    // const [isSubmitForm, setIsSubmitForm] = useState(false);
     const { eventId } = useParams();
 
     const categoryOptions = optionCategory.map((item) => item.value);
