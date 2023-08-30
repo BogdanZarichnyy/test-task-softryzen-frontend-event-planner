@@ -113,7 +113,11 @@ const Pagination = ({ items }) => {
     };
 
     const setInitialPage = () => {
-        return urlParams.get('page') - 1;
+        if (!urlParams.get('page')) {
+            return 0;
+        } else {
+            return urlParams.get('page') - 1;
+        }
     }
 
     return(
