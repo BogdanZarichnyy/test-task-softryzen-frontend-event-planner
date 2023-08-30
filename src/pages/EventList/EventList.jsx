@@ -76,7 +76,7 @@ const EventList = () => {
             dispatch(setEventsList(eventsSortBy(eventsStore, sortByQuery.toLowerCase())));
         }
 
-    }, [params, setUrlParams, dispatch, pageQuery, searchQuery, categoryQuery, sortByQuery]);
+    }, [params, eventsStore, setUrlParams, dispatch, pageQuery, searchQuery, categoryQuery, sortByQuery]);
 
     const formatDate = (dateData) => {
         // console.log(dateData);
