@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/test-task-softryzen-frontend-event-planner/static/css/main.b09a416a.css",
-    "main.js": "/test-task-softryzen-frontend-event-planner/static/js/main.0fb92de2.js",
+    "main.js": "/test-task-softryzen-frontend-event-planner/static/js/main.35c4327a.js",
     "static/media/Poppins-Light.ttf": "/test-task-softryzen-frontend-event-planner/static/media/Poppins-Light.7641a0f76ca9ef6c252c.ttf",
     "static/media/Poppins-Regular.ttf": "/test-task-softryzen-frontend-event-planner/static/media/Poppins-Regular.35d26b781dc5fda684cc.ttf",
     "static/media/Poppins-Medium.ttf": "/test-task-softryzen-frontend-event-planner/static/media/Poppins-Medium.673ed42382ab264e0bf5.ttf",
@@ -20,10 +20,10 @@
     "static/media/sprite.svg": "/test-task-softryzen-frontend-event-planner/static/media/sprite.2f6d72de4ae2b649e55218ec3a107970.svg",
     "index.html": "/test-task-softryzen-frontend-event-planner/index.html",
     "main.b09a416a.css.map": "/test-task-softryzen-frontend-event-planner/static/css/main.b09a416a.css.map",
-    "main.0fb92de2.js.map": "/test-task-softryzen-frontend-event-planner/static/js/main.0fb92de2.js.map"
+    "main.35c4327a.js.map": "/test-task-softryzen-frontend-event-planner/static/js/main.35c4327a.js.map"
   },
   "entrypoints": [
     "static/css/main.b09a416a.css",
-    "static/js/main.0fb92de2.js"
+    "static/js/main.35c4327a.js"
   ]
 }
