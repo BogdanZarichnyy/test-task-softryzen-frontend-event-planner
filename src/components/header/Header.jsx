@@ -1,10 +1,9 @@
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useSearchParams } from 'react-router-dom';
 import { Field, Form, Formik, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 
 import { useDispatch } from "react-redux";
-import { searchEvents, pageEvents, categoryEvents, sortByEvents } from '../../redux/slices/searchSlice';
-
+import { pageEvents } from '../../redux/slices/filterSlice';
 
 import SelectLanguage from '../selectLanguage/SelectLanguage';
 
@@ -14,26 +13,20 @@ import scss from './Header.module.scss';
 
 const Header = () => {   
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+
+    const [urlParams, setUrlParams] = useSearchParams();
 
     const handlerOnSearch= (values, actions) => {
         // console.log('values.search', values.search);
 
-        if(!values.search) {
-            dispatch(pageEvents(1));
-            dispatch(searchEvents(''));
-            dispatch(categoryEvents(''));
-            dispatch(sortByEvents(''));
+        dispatch(pageEvents(1));
 
-            navigate('/?page=1');
-        } else {
-            dispatch(pageEvents(1));
-            dispatch(searchEvents(values.search.toLowerCase()));
-            dispatch(categoryEvents(''));
-            dispatch(sortByEvents(''));
+        let dataUrlParams = {
+            page: 1,
+            ...(values.search ? {search: values.search} : null),
+        };
+        setUrlParams({ ...dataUrlParams });
 
-            navigate(`/?page=1&search=${values.search}`);
-        }
         actions.setSubmitting(false);
         actions.resetForm();
     }

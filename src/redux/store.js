@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { reducerEvents } from './slices/eventsSlice';
-import { reducerSearch } from './slices/searchSlice';
+import { reducerFilter } from './slices/filterSlice';
 
 import {
     persistStore,
@@ -22,12 +22,12 @@ const persistConfig = {
 }
 
 const persistedEventsReducer = persistReducer(persistConfig, reducerEvents);
-const persistedSearchReducer = persistReducer(persistConfig, reducerSearch);
+const persistedFilterReducer = persistReducer(persistConfig, reducerFilter);
 
 export const store = configureStore({
     reducer: {
         events: persistedEventsReducer,
-        search: persistedSearchReducer,
+        filter: persistedFilterReducer,
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({

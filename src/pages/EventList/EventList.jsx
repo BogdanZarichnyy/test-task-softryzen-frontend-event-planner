@@ -5,78 +5,78 @@ import SelectSortBy from '../../components/selectSortBy/SelectSortBy';
 import Pagination from '../../components/pagination/Pagination';
 
 import { useSelector, useDispatch } from "react-redux";
-import { eventsSelectorLimit, selectEventsSearch } from '../../redux/selectors';
-// import { eventsSelectorLimit, selectEventsSearch, pageSelector, searchSelector, categorySelector, sortBySelector } from '../../redux/selectors';
-import { searchEvents, pageEvents, categoryEvents, sortByEvents } from '../../redux/slices/searchSlice';
+import { eventsSelector, eventsListSelector, selectEventsPagination } from '../../redux/selectors';
+import { setEventsList, pageEvents } from '../../redux/slices/filterSlice';
+
+import { eventsSearch } from '../../utils/eventsSearch';
+import { eventsCategory } from '../../utils/eventsCategory';
+import { eventsSortBy } from '../../utils/eventsSortBy';
 
 import sprite from '../../images/sprite.svg';
 
 import scss from './EventList.module.scss';
 
 const EventList = () => {
-    const eventsStore = useSelector(selectEventsSearch);
-    const eventsStoreLimit = useSelector(eventsSelectorLimit);
-
-    // const eventsStorePage = useSelector(pageSelector);
-    // const eventsStoreSearch = useSelector(searchSelector);
-    // const eventsStoreCategory = useSelector(categorySelector);
-    // const eventsStoreSortBy = useSelector(sortBySelector);
+    const eventsStore = useSelector(eventsSelector);
+    const eventsListStore = useSelector(eventsListSelector);
+    const eventsStorePagination = useSelector(selectEventsPagination);
 
     const [urlParams, setUrlParams] = useSearchParams();
-    const pageQuery = urlParams.get('page') ?? '';
     const searchQuery = urlParams.get('search') ?? '';
     const categoryQuery = urlParams.get('category') ?? '';
     const sortByQuery = urlParams.get('sortBy') ?? '';
+    const pageQuery = urlParams.get('page') ?? '';
 
     const dispatch = useDispatch();
-    // const navigate = useNavigate();
 
     const params = useMemo(
         () => Object.fromEntries([...urlParams]),
         [urlParams]
     );
-
-    const { page, search, category, sortBy } = params;
     
-    console.log('page', page);
-    console.log('search', search);
-    console.log('category', category);
-    console.log('sortBy', sortBy);
-
     useEffect(() => {
+        dispatch(setEventsList(eventsStore));
+
         if (!pageQuery) {
-            setUrlParams({ ...params, page: 1 });
             dispatch(pageEvents(1));
         } else {
-            setUrlParams({ ...params, page: Number(pageQuery) });
             dispatch(pageEvents(Number(pageQuery)));
         }
-        
-        if (!searchQuery) {
-            setUrlParams({ ...params });
-            dispatch(searchEvents(''));
-        } else {
-            setUrlParams({ ...params, search: searchQuery });
-            dispatch(searchEvents(searchQuery.toLowerCase()));
+
+        if (searchQuery) {
+            let dataUrlParams = {
+                ...(pageQuery ? {page: pageQuery} : null),
+                ...(searchQuery ? {search: searchQuery} : null),
+                // ...(categoryQuery ? {category: categoryQuery} : null),
+                // ...(sortByQuery ? {sortBy: sortByQuery} : null),
+            };
+            setUrlParams({ ...dataUrlParams });
+            dispatch(setEventsList(eventsSearch(eventsStore, searchQuery.toLowerCase())));
         }
 
-        if (!categoryQuery) {
-            setUrlParams({ ...params });
-            dispatch(categoryEvents(''));
-        } else {
-            setUrlParams({ ...params, category: categoryQuery });
-            dispatch(categoryEvents(categoryQuery.toLowerCase()));
+        if (categoryQuery){
+            let dataUrlParams = {
+                ...(pageQuery ? {page: pageQuery} : null),
+                // ...(searchQuery ? {search: searchQuery} : null),
+                ...(categoryQuery ? {category: categoryQuery} : null),
+                // ...(sortByQuery ? {sortBy: sortByQuery} : null),
+            };
+            setUrlParams({ ...dataUrlParams });
+            dispatch(setEventsList(eventsCategory(eventsStore, categoryQuery.toLowerCase())));
         }
 
-        if (!sortByQuery) {
-            setUrlParams({ ...params });
-            dispatch(sortByEvents(''));
-        } else {
-            setUrlParams({ ...params, sortBy: sortByQuery });
-            dispatch(sortByEvents(sortByQuery.toLowerCase()));
+        if (sortByQuery) {
+            let dataUrlParams = {
+                ...(pageQuery ? {page: pageQuery} : null),
+                // ...(searchQuery ? {search: searchQuery} : null),
+                // ...(categoryQuery ? {category: categoryQuery} : null),
+                ...(sortByQuery ? {sortBy: sortByQuery} : null),
+            };
+            setUrlParams({ ...dataUrlParams });
+            dispatch(setEventsList(eventsSortBy(eventsStore, sortByQuery.toLowerCase())));
         }
 
-    }, [params, setUrlParams, dispatch,  pageQuery, searchQuery, categoryQuery, sortByQuery]);
+    }, [params, setUrlParams, dispatch, pageQuery, searchQuery, categoryQuery, sortByQuery]);
 
     const formatDate = (dateData) => {
         // console.log(dateData);
@@ -109,10 +109,10 @@ const EventList = () => {
 
                     <ul className={scss.filterList}>
                         <li className={scss.filterItem}>
-                            <SelectCategory setUrlParams={setUrlParams} urlParams={urlParams} params={params} />
+                            <SelectCategory setUrlParams={setUrlParams} />
                         </li>
                         <li className={scss.filterItem}>
-                            <SelectSortBy setUrlParams={setUrlParams} urlParams={urlParams} params={params} />
+                            <SelectSortBy setUrlParams={setUrlParams} />
                         </li>
                         <li className={scss.filterItem}>
                             <Link className={scss.eventCreate} to='/create'>
@@ -127,8 +127,8 @@ const EventList = () => {
                     <h2 className={scss.title}>My events</h2>
 
                     <ul className={scss.eventList}>
-                        {!!eventsStoreLimit.length &&
-                            eventsStoreLimit.map((item) =>
+                        {!!eventsStorePagination.length &&
+                            eventsStorePagination.map((item) =>
                                 <li className={scss.eventItem} key={item.id}>
                                     <div className={scss.eventRating}>
                                         <span className={scss.eventCategory}>{item.category}</span>
@@ -164,8 +164,7 @@ const EventList = () => {
                         }
                     </ul>
 
-                    {/* <Pagination items={eventsStore} urlParams={urlParams} setUrlParams={setUrlParams} /> */}
-                    <Pagination items={eventsStore} />
+                    {!!eventsListStore.length && <Pagination items={eventsListStore} />}
 
                 </div>
             </div>

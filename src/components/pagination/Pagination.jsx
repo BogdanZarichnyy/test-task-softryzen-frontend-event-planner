@@ -4,7 +4,7 @@ import ReactPaginate from 'react-paginate';
 
 import { useSelector, useDispatch } from "react-redux";
 import { pageSelector } from '../../redux/selectors';
-import { pageEvents, limitEvents } from '../../redux/slices/searchSlice';
+import { pageEvents, limitEvents } from '../../redux/slices/filterSlice';
 
 import scss from './Pagination.module.scss';
 
@@ -34,7 +34,6 @@ const Pagination = ({ items }) => {
     const [itemsPerPage, setItemsPerPage] = useState(6);
 
     const pageStore = useSelector(pageSelector);
-    console.log(pageStore);
 
     // const limitStore = useSelector(limitSelector);
 

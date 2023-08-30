@@ -7,21 +7,9 @@ import OptionIconDescending from './optionIcon/optionIconDescending/OptionIconDe
 
 import options from '../../assets/options/sortBy';
 
-const SelectSortBy = ({ setUrlParams, urlParams, params }) => {
+const SelectSortBy = ({ setUrlParams }) => {
     const [currentSortBy, setCurrentSortBy] = useState();
     const [selectIcon, setSelectIcon] = useState(null);
-
-    // useEffect(() => {
-    //     const placeholderElement = document.querySelector('.custom-select-sort-by__placeholder');
-    //     console.log(placeholderElement);
-
-    //     const controlElement = document.querySelector('.custom-select-sort-by__control');
-    //     console.log(controlElement);
-
-    //     if (placeholderElement ) {
-    //         controlElement.style.padding = "16px 24px !important;";
-    //     }
-    // }, []);
 
     const getValueSortBy = () => {
         if (currentSortBy === 'default') {
@@ -31,7 +19,7 @@ const SelectSortBy = ({ setUrlParams, urlParams, params }) => {
     }
 
     const handlerSelectedOption = (newValue) => {
-        console.log(newValue.value);
+        // console.log(newValue.value);
 
         if (newValue.value.includes('ascending')) {
             setSelectIcon(true);
@@ -41,21 +29,12 @@ const SelectSortBy = ({ setUrlParams, urlParams, params }) => {
             setSelectIcon(null);
         }
 
-        if (newValue.value === 'default') {
-            const pageQuery = urlParams.get('page');
-            const searchQuery = urlParams.get('search');
-            const categoryQuery = urlParams.get('category');
-            // const sortByQuery = urlParams.get('sortBy');
-            let dataUrlParams = {
-                ...(pageQuery ? {page: pageQuery} : null),
-                ...(searchQuery ? {search: searchQuery} : null),
-                ...(categoryQuery ? {category: categoryQuery} : null),
-                // ...(sortByQuery ? {sortBy: sortByQuery} : null),
-            };
-            setUrlParams({ ...dataUrlParams });
-        } else {
-            setUrlParams({ ...params, sortBy: newValue.value });
-        }
+        let dataUrlParams = {
+            page: 1,
+            ...(newValue.value !== 'default' ? {sortBy: newValue.value} : null),
+        };
+        setUrlParams({ ...dataUrlParams });
+
         setCurrentSortBy(newValue.value);
     }
 

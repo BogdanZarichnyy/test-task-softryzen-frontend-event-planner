@@ -1,11 +1,10 @@
 import { useState } from 'react';
-// import { Link, NavLink, useSearchParams } from 'react-router-dom';
 import Select from 'react-select';
 import CustomIconSelectCategory from './customIconSelectCategory/CustomIconSelectCategory';
 
 import options from '../../assets/options/category';
 
-const SelectCategory = ({ setUrlParams, urlParams, params }) => {
+const SelectCategory = ({ setUrlParams }) => {
     const [currentCategory, setCurrentCategory] = useState();
 
     const getValueCategory = () => {
@@ -18,21 +17,13 @@ const SelectCategory = ({ setUrlParams, urlParams, params }) => {
     const handlerSelectedOption = (newValue) => {
         // console.log(newValue.value);
         // console.log(newValue.label);
-        if (newValue.value === 'All') {
-            const pageQuery = urlParams.get('page');
-            const searchQuery = urlParams.get('search');
-            // const categoryQuery = urlParams.get('category');
-            const sortByQuery = urlParams.get('sortBy');
-            let dataUrlParams = {
-                ...(pageQuery ? {page: pageQuery} : null),
-                ...(searchQuery ? {search: searchQuery} : null),
-                // ...(categoryQuery ? {category: categoryQuery} : null),
-                ...(sortByQuery ? {sortBy: sortByQuery} : null),
-            };
-            setUrlParams({ ...dataUrlParams });
-        } else {
-            setUrlParams({ ...params, category: newValue.value });
-        }
+
+        let dataUrlParams = {
+            page: 1,
+            ...(newValue.value !== 'All' ? {category: newValue.value} : null),
+        };
+        setUrlParams({ ...dataUrlParams });
+
         setCurrentCategory(newValue.value);
     }
 
