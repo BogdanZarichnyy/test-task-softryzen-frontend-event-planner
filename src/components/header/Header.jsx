@@ -36,7 +36,7 @@ const Header = () => {
             <div className='container'>
                 <nav className={scss.wrraper}>
 
-                    <NavLink className={scss.logo} to="/?page=1" end>Event Planner</NavLink>
+                    <NavLink className={scss.logo} to="/" end>Event Planner</NavLink>
 
                     <SelectLanguage />
 
