@@ -1,0 +1,85 @@
+@import '../../sass/utils/variables';
+@import '../../sass/utils/functions';
+@import '../../sass/utils/mixins';
+
+.filterList {
+    display: flex;
+    justify-content: flex-end;
+    margin-left: auto;
+    gap: 24px;
+}
+
+.filterItem {
+    height: 56px;
+    width: 56px;
+    position: relative;
+    display: block;
+    border-radius: 8px;
+    // @include boxShadow();
+}
+
+.filterItem:first-child {
+    @media screen and (min-width: $tablet) {
+        width: 143px;
+    }
+
+    @media screen and (min-width: $desktop) {
+        width: 148px;
+    }
+}
+
+.filterItem:nth-child(2) {
+    @media screen and (min-width: $tablet) {
+        width: 129px;
+    }
+}
+
+.filterItem:last-child {
+    @media screen and (min-width: $tablet) {
+        width: 193px;
+    }
+}
+
+.eventCreate {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: getColor('general');
+    border: 0;
+    border-radius: 8px;
+    padding: 16px;
+    @include boxShadow();
+    @include transition-effect(background-color);
+
+    @media screen and (min-width: $tablet) {
+        display: flex;
+        align-items: center;
+    }
+
+    &:disabled {
+        background-color: getColor('disable');
+    }
+
+    &:hover,
+    &:focus {
+        background-color: getColor('hover');
+    }
+}
+
+.eventCreateIcon {
+    display: block;
+    width: 24px;
+    height: 24px;
+}
+
+.buttonText {
+    display: none;
+
+    @media screen and (min-width: $tablet) {
+        display: inline-block;
+        margin-left: 16px;
+        font-family: 'Poppins-Medium';
+        @include font(16px, 24px);
+        color: getColor('main');
+    }
+}

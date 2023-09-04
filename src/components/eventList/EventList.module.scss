@@ -1,0 +1,22 @@
+
+@import '../../sass/utils/variables';
+@import '../../sass/utils/functions';
+@import '../../sass/utils/mixins';
+
+.eventList {
+    margin-top: 40px;
+    display: grid;
+    gap: 24px;
+    grid-template-columns: repeat(auto-fill, minmax(272px, auto));
+
+    @media screen and (min-width: $tablet) {
+        grid-template-columns: repeat(2, 1fr);
+        margin-top: 24px;
+    }
+
+    @media screen and (min-width: $desktop) {
+        width: 100%;
+        grid-template-columns: repeat(4, 1fr);
+        row-gap: 40px;
+    }
+}

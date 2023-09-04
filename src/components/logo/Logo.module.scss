@@ -1,0 +1,15 @@
+@import '../../sass/utils/variables';
+@import '../../sass/utils/functions';
+@import '../../sass/utils/mixins';
+
+.logo {
+    font-family: 'Alata-Regular';
+    @include font(24px, 33px);
+    color: getColor('general');
+    @include transition-effect(color transform);
+
+    &:hover {
+        color: getColor('hover');
+        transform: scale(1.2);
+    }
+}

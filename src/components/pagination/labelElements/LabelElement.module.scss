@@ -1,0 +1,8 @@
+@import '../../../sass/utils/variables';
+@import '../../../sass/utils/functions';
+
+.icon {
+    height: 24px;
+    width: 24px;
+    fill: getColor('pagination-icon');
+}

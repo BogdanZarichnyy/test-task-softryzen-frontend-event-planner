@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams } from "react-router-dom";
 import { Field, Form, Formik, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
 import InputMask from 'react-input-mask';
 
 import Button from '../../components/button/Button';
@@ -12,16 +11,14 @@ import 'react-dropdown/style.css';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 
-// import DatePicker from "react-datepicker";
-// import 'react-datepicker/dist/react-datepicker.css';
-
 import TimePicker from 'rc-time-picker';
 import 'rc-time-picker/assets/index.css';
 
-import moment from 'moment';
-
 import { useDispatch } from "react-redux";
 import { createEvent, editEvent } from '../../redux/slices/eventsSlice';
+
+import { formatDateForm, getEditTimeForTimePicker, getTimeForTimePicker } from '../../services/formatData';
+import yupSchema from '../../validation/yupSchema';
 
 import sprite from '../../images/sprite.svg';
 
@@ -49,8 +46,6 @@ const FormEvent = ({ textForButton, action = "createEvent", initialValues = init
     const [showTimePicker, setShowTimePicker] = useState(false);
     const [isValue, setIsValue] = useState(false);
 
-    // const [isSubmitForm, setIsSubmitForm] = useState(true);
-    // const [isSubmitForm, setIsSubmitForm] = useState(false);
     const { eventId } = useParams();
 
     const categoryOptions = optionCategory.map((item) => item.value);
@@ -78,25 +73,6 @@ const FormEvent = ({ textForButton, action = "createEvent", initialValues = init
         }
     }
 
-    // const handlerIsDataSubmit = (dataForm) => {
-    //     console.log('dataForm', dataForm);
-    //     // const submitDataForm = Object.keys(dataForm)
-    //     //     .filter((item) => item === 'createAt' ? null : item === 'updateAt' ? null : item === 'picture' ? null : item);
-    //     // // console.log(submitDataForm);
-
-    //     // const ddd = dataForm.title & dataForm.description & dataForm.date & dataForm.time & dataForm.location & dataForm.category & dataForm.priority;
-    //     // console.log('ddd', ddd);
-
-    //     const submitDataForm = Object.values(dataForm);
-    //     console.log('submitDataForm', submitDataForm);
-
-    //     // for (const param of submitDataForm) {
-    //     //     if (!dataForm[param]) {
-    //     //         setIsSubmitForm(true);
-    //     //     } else setIsSubmitForm(false);
-    //     // }
-    // }
-
     const handlerToggleCalendar = () => {
         setShowCalendar(!showCalendar);
     }
@@ -106,33 +82,8 @@ const FormEvent = ({ textForButton, action = "createEvent", initialValues = init
     }
     
     const handlerCloseChooseDate = (setFieldValue) => {
-        setFieldValue('date', formatDate(dateCalendar));
+        setFieldValue('date', formatDateForm(dateCalendar));
         setShowCalendar(false);
-    }
-
-    const formatDate = (date) => {
-        const day = date.getDate();
-        const month = date.getMonth() + 1;
-        const year = date.getFullYear();
-        const result = day.toString().padStart(2, '0') + '.' + month.toString().padStart(2, '0') + '.' + year;
-        return result;
-    }
-
-    const getEditTimeForTimePicker = (value = new Date()) => {
-        const date = new Date(value);
-        const hours = date.getHours();
-        const minutes = date.getMinutes();
-        // const result = moment().hour(hours).minute(minutes).utc();
-        const result = moment().hour(hours).minute(minutes).utcOffset(0);
-        return result;
-    }
-
-    const getTimeForTimePicker = (value = new Date()) => {
-        const date = new Date(value);
-        const hours = date.getHours();
-        const minutes = date.getMinutes();
-        const result = moment().hour(hours).minute(minutes);
-        return result;
     }
 
     return(
@@ -140,48 +91,7 @@ const FormEvent = ({ textForButton, action = "createEvent", initialValues = init
             initialValues={initialValues}
             onSubmit={handlerCreateEvent}
             validateOnMount={true}
-            validationSchema={Yup.object().shape({
-                title: Yup.string()
-                    .max(30, "Must be at most 30 characters")
-                    .matches(/^(?! )(?!-)[a-zA-Z\d\s-]+$/, "Invalid input")
-                    // .optional()
-                    // .nullable(''),
-                    .nonNullable(),
-                description: Yup.string()
-                    .max(300, "Must be at most 300 characters")
-                    // .optional()
-                    // .nullable(''),
-                    .nonNullable(),
-                date: Yup.string()
-                    .nonNullable(),
-                // date: Yup.date(),
-                //     .min(new Date()),
-                time: Yup.date()
-                    .nonNullable(),
-                    // .optional()
-                    // .nullable(''),
-                location: Yup.string()
-                    .max(30, "Must be at most 30 characters")
-                    .matches(/^(?! )(?!-)[a-zA-Z\d\s-]+$/, "Invalid input")
-                    .nonNullable(),
-                    // .optional()
-                    // .nullable(''),
-                category: Yup.mixed().oneOf(categoryOptions)
-                    // .optional()
-                    // .nullable(''),
-                    .nonNullable(),
-                picture: Yup.string()
-                    // .url()
-                    // .matches(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/, "Invalid input")
-                    .optional()
-                    .nullable(''),
-                priority: Yup.mixed().oneOf(priorityOptions)
-                    .nonNullable(),
-                    // .optional()
-                    // .nullable(''),
-                createAt: Yup.date(),
-                updateAt: Yup.date(),
-            })}
+            validationSchema={yupSchema}
         >
         {(props) => {
             const { values, errors, touched, handleChange, setFieldTouched, setFieldValue } = props;
@@ -289,7 +199,7 @@ const FormEvent = ({ textForButton, action = "createEvent", initialValues = init
                                         defaultValue={dateCalendar}
                                         // onChange={(date, event) => console.log(date)}
                                         onClickDay={async (date) => {
-                                            await setFieldValue('date', formatDate(date));
+                                            await setFieldValue('date', formatDateForm(date));
                                             // setFieldValue('date', date);
                                             setDateCalendar(date);
                                         }} 

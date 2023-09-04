@@ -1,3 +1,10 @@
 @import '../../sass/utils/variables';
 @import '../../sass/utils/functions';
 @import '../../sass/utils/mixins';
+
+.notFound {
+    margin: 0 auto;
+    text-align: center;
+    @include font(32px, 48px);
+    color: getColor('category-High');
+}

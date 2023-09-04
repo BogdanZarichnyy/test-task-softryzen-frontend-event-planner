@@ -1,10 +1,8 @@
-// import scss from './NotFound.module.scss';
+import scss from './NotFound.module.scss';
 
 const NotFound = () => {
     return(
-        <>
-            <div>NotFound</div>
-        </>
+        <div className={scss.notFound}>Page not found</div>
     );
 }
 
