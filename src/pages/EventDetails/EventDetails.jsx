@@ -16,9 +16,9 @@ import constants from '../../assets/constants/resolutionPoints';
 
 const EventDetails = () => {
     const [eventItem, setEventItem] = useState();
+    const eventsStore = useSelector(eventsSelector);
     const { eventId } = useParams();
 
-    const eventsStore = useSelector(eventsSelector);
     const dispatch = useDispatch();
 
     const [isLandscape, setIsLandscape] = useState(true);
@@ -122,6 +122,6 @@ const EventDetails = () => {
             </div>
         </section>
     );
-}
+};
 
 export default EventDetails;

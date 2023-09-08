@@ -5,8 +5,21 @@ const eventsSlice = createSlice({
     name: "eventsSlice",
     initialState: {
         events: initialData,
+        // page: 1,
+        // limit: 6,
     },
     reducers: {
+
+        setEvents: {
+            reducer( state, action) {
+                state.events = action.payload;
+            },
+            prepare(events) {
+                return {
+                    payload: events,
+                }
+            }
+        },
 
         createEvent: {
             reducer(state, action) {
@@ -44,6 +57,8 @@ const eventsSlice = createSlice({
 
         editEvent: {
             reducer(state, action) {
+                console.log(action.payload);
+                console.log(action.payload.id);
                 state.events = [...current(state.events).filter(event => event.id !== action.payload.id), action.payload];
             },
             prepare({ id, title, description, date, time, location, category, picture, priority, createAt, updateAt }) {
@@ -65,8 +80,31 @@ const eventsSlice = createSlice({
             }
         },
 
+        // setPageEvents: {
+        //     reducer( state, action) {
+        //         state.page = action.payload;
+        //     },
+        //     prepare(page) {
+        //         return {
+        //             payload: page,
+        //         }
+        //     }
+        // },
+
+        // setLimitEvents: {
+        //     reducer( state, action) {
+        //         state.limit = action.payload;
+        //     },
+        //     prepare(limit) {
+        //         return {
+        //             payload: limit,
+        //         }
+        //     }
+        // }
+
     }
 });
 
-export const { createEvent, deleteEvent, editEvent } = eventsSlice.actions;
+export const { setEvents, createEvent, deleteEvent, editEvent } = eventsSlice.actions;
+// export const { setEvents, createEvent, deleteEvent, editEvent, setPageEvents, setLimitEvents } = eventsSlice.actions;
 export const reducerEvents = eventsSlice.reducer;

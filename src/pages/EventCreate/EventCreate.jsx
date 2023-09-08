@@ -26,6 +26,6 @@ const EventCreate = () => {
             </div>
         </header>
     );
-}
+};
 
 export default EventCreate;

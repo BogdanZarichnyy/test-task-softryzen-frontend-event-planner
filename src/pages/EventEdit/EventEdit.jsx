@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { NavLink, useParams, useNavigate } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import FormEvent from '../../components/formEvent/FormEvent';
 
 import { useSelector } from "react-redux";
-import { eventsSelector } from '../../redux/selectors';
+import { eventsSelector, eventsListSelector } from '../../redux/selectors';
 
 import sprite from '../../images/sprite.svg';
 
@@ -15,7 +15,8 @@ const EventEdit = () => {
     const { eventId } = useParams();
 
     useEffect(() => {
-        setEventItem(() => eventsStore.filter((item) => item.id == eventId)[0]);
+        const eventItem = eventsStore.filter((item) => item.id.toString() === eventId)[0];
+        setEventItem(eventItem);
     }, []);
 
     return (
@@ -38,6 +39,6 @@ const EventEdit = () => {
             </div>
         </section>
     );
-}
+};
 
 export default EventEdit;

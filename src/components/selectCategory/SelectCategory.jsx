@@ -35,10 +35,10 @@ const SelectCategory = ({ setUrlParams }) => {
             onChange={handlerSelectedOption}
             options={options}
             isSearchable={false}
-            placeholder={"Category"}
+            placeholder="Category"
             components={{ DropdownIndicator: CustomIconSelectCategory }}
         />
     );
-}
+};
 
 export default SelectCategory;

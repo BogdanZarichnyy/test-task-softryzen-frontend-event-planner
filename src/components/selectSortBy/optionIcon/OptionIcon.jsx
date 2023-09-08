@@ -30,6 +30,6 @@ const OptionIcon = props => {
             }
         </components.Option>
     );
-}
+};
 
 export default OptionIcon;

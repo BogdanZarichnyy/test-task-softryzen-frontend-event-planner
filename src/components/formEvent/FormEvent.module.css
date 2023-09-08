@@ -1,0 +1,73 @@
+.form {
+  margin-top: 24px;
+  padding: 40px 16px;
+  border-radius: 8px;
+  background-color: #FFF;
+  box-shadow: 2px 4px 9px 0px rgba(166, 141, 174, 0.28) !important;
+}
+@media screen and (min-width: 768px) {
+  .form {
+    padding: 40px 24px;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .form {
+    padding: 40px;
+  }
+}
+
+.formContainer {
+  display: grid;
+  grid-template-columns: 1fr;
+  row-gap: 20px;
+}
+@media screen and (min-width: 768px) {
+  .formContainer {
+    grid-template-columns: repeat(2, 1fr);
+    -moz-column-gap: 24px;
+         column-gap: 24px;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .formContainer {
+    grid-template-columns: repeat(3, 1fr);
+    -moz-column-gap: 42px;
+         column-gap: 42px;
+  }
+}
+
+.labelInputArea {
+  height: 180px;
+}
+@media screen and (min-width: 768px) {
+  .labelInputArea {
+    grid-column: 1/span 1;
+    grid-row: 2/span 2;
+  }
+}
+
+.inputArea {
+  height: 156px;
+  resize: none;
+}
+
+.buttonSubmit {
+  display: block;
+  width: 100%;
+  margin-top: 40px;
+}
+@media screen and (min-width: 768px) {
+  .buttonSubmit {
+    display: block;
+    width: 193px;
+    margin-left: auto;
+  }
+}
+
+.buttonSubmitDisable {
+  background-color: #ACA7C3;
+  cursor: auto;
+}
+.buttonSubmitDisable:hover, .buttonSubmitDisable:focus {
+  background-color: #ACA7C3;
+}/*# sourceMappingURL=FormEvent.module.css.map */

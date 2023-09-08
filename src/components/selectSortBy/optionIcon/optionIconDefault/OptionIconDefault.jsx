@@ -8,6 +8,6 @@ const OptionIconDefault = () => {
             <use id="sort-by" href={`${sprite}#sort-by`} />
         </svg>
     );
-}
+};
 
 export default OptionIconDefault;

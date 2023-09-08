@@ -12,6 +12,7 @@ const yupSchema = Yup.object().shape({
         .nonNullable(),
     description: Yup.string()
         .max(300, "Must be at most 300 characters")
+        .matches(/^(?! )(?!-)[a-zA-Z\d\s-_.,:;/\\|?!@#$%^&*()=+~]+$/, "Invalid input")
         .nonNullable(),
     date: Yup.string()
         .nonNullable(),
@@ -24,8 +25,8 @@ const yupSchema = Yup.object().shape({
     category: Yup.mixed().oneOf(categoryOptions)
         .nonNullable(),
     picture: Yup.string()
-        .url()
-        .matches(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/, "Invalid input")
+        // .url()
+        // .matches(/https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/, "Picture must be a valid URL")
         .optional()
         .nullable(''),
     priority: Yup.mixed().oneOf(priorityOptions)

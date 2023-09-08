@@ -4,6 +4,6 @@ const NotFound = () => {
     return(
         <div className={scss.notFound}>Page not found</div>
     );
-}
+};
 
 export default NotFound;

@@ -1,0 +1,67 @@
+@import '../../../../sass/utils/variables';
+@import '../../../../sass/utils/functions';
+@import '../../../../sass/utils/mixins';
+
+.wrraperTimePicker {
+    position: relative;
+    background-color: transparent;
+    margin-top: 8px;
+}
+
+.timePicker {
+    display: block;
+    background-color: transparent;
+
+    & > input {
+        display: block;
+        padding: 15px calc(11px + 24px) 15px 11px;
+        font-family: 'Poppins-Regular';
+        @include font(16px, 24px);
+        color: getColor('text-main');
+        border: 1px solid getColor('disable');
+        border-radius: 8px;
+        height: 56px;
+        width: 100%;
+        outline: transparent;
+        cursor: pointer;
+        opacity: 1;
+    
+        &:focus {
+            border-color: getColor('general');
+        }
+
+        &:hover {
+            border-color: getColor('hover');
+        }
+    }
+
+    & > input::placeholder {
+        opacity: 1;
+        color: transparent;
+        @include transition-effect(color);
+    }
+
+    &:hover > input::placeholder {
+        color: getColor('hover');
+    }
+}
+
+.buttonTimePickerIcon {
+    height: 24px;
+    width: 24px;
+    fill: transparent;
+    stroke: getColor('disable');
+    position: absolute;
+    top: 16px;
+    right: 12px;
+    @include transition-effect(stroke);
+    cursor: pointer;
+
+    &:hover {
+        stroke: getColor('hover');
+    }
+}
+
+.buttonTimePickerIconIsActive {
+    stroke: getColor('general');
+}

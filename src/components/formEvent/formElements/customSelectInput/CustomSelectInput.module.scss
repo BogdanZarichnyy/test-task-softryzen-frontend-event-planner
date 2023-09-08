@@ -1,0 +1,78 @@
+@import '../../../../sass/utils/variables';
+@import '../../../../sass/utils/functions';
+@import '../../../../sass/utils/mixins';
+
+.inputDropdown {
+    margin-top: 8px;
+    padding: 15px calc(11px + 24px) 15px 11px;
+    font-family: 'Poppins-Regular';
+    @include font(16px, 24px);
+    color: getColor('text-main');
+    border: 1px solid getColor('disable');
+    border-radius: 8px;
+    width: 100%;
+    outline: transparent;
+    box-shadow: none !important;
+    cursor: pointer;
+
+    &:focus {
+        border-color: getColor('general');
+    }
+
+    &:hover {
+        border: 1px solid getColor('hover');
+    }
+}
+
+.placeholderDropdown {
+    color: transparent;
+
+    .inputDropdown:hover & {
+        color: getColor('hover') !important;
+    }
+}
+
+.menuDropdown {
+    margin-top: 18px;
+    padding: 0 16px;
+    background-color: getColor('main');
+    border: 0;
+    border-radius: 8px;
+    max-height: none;
+    @include boxShadow();
+
+    & div {
+        padding: 16px 0;
+        color: getColor('text-main');
+        border-bottom: 1px solid getColor('disable');
+
+        &:hover {
+            background-color: inherit;
+            color: getColor('hover');
+        }
+
+        &[aria-selected="true"] {
+            background-color: inherit;
+            color: getColor('general');
+        }
+    }
+
+    & div:last-child {
+        border-bottom: none;
+    }
+}
+
+.buttonInputDropdwonIcon {
+    position: absolute;
+    top: 15px;
+    right: 12px;
+    height: 24px;
+    width: 24px;
+    stroke: getColor('disable');
+    fill: transparent;
+    @include transition-effect(stroke);
+
+    .inputDropdown:hover & {
+        stroke: getColor('hover');
+    }
+}

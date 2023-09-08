@@ -15,8 +15,6 @@ const SearchForm = () => {
     const [urlParams, setUrlParams] = useSearchParams();
 
     const handlerOnSearch= (values, actions) => {
-        // console.log('values.search', values.search);
-
         dispatch(pageEvents(1));
 
         let dataUrlParams = {
@@ -66,6 +64,6 @@ const SearchForm = () => {
         }
         </Formik>
     );
-}
+};
 
 export default SearchForm;

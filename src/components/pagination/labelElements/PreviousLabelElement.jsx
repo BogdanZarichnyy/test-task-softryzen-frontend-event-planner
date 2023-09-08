@@ -8,6 +8,6 @@ const PreviousLabelElement = () => {
             <use id="chevron-left" href={`${sprite}#chevron-left`} />
         </svg>
     );
-}
+};
 
 export default PreviousLabelElement;

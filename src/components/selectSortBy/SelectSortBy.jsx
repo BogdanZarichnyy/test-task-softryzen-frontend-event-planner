@@ -46,7 +46,7 @@ const SelectSortBy = ({ setUrlParams }) => {
             onChange={handlerSelectedOption}
             options={options}
             isSearchable={false}
-            placeholder={"Sort by"}
+            placeholder="Sort by"
             components={{ 
                 DropdownIndicator: 
                     selectIcon === true ? OptionIconAscending
@@ -57,6 +57,6 @@ const SelectSortBy = ({ setUrlParams }) => {
                 Option: OptionIcon }}
         />
     );
-}
+};
 
 export default SelectSortBy;

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback, useMemo } from 'react';
+import { useEffect, useState, useCallback, useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import NextLabelElement from './labelElements/NextLabelElement';
@@ -15,6 +15,7 @@ import constants from '../../assets/constants/resolutionPoints';
 const Pagination = ({ count }) => {
     const [pageRangeDisplayed, setPageRangeDisplayed] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(6);
+    // const [initPage, setInitPage] = useState(0);
 
     const pageStore = useSelector(pageSelector);
     const dispatch = useDispatch();
@@ -57,14 +58,14 @@ const Pagination = ({ count }) => {
             setPageRangeDisplayed(3);
             dispatch(limitEvents(6));
         }
-    }, [dispatch, dimensions.width, setPageRangeDisplayed]);
+    }, [dispatch, dimensions.width, setPageRangeDisplayed, setItemsPerPage, limitEvents]);
 
     const pageCount = Math.ceil(count / itemsPerPage);
 
     useEffect(() => {
         setUrlParams({ ...params, page: pageStore });
     }, [params.page, params, setUrlParams, pageStore, dispatch]);
-    
+
     const handlePageClick = (event) => {
         const numberPage = event.selected + 1;
         dispatch(pageEvents(numberPage));
@@ -90,6 +91,7 @@ const Pagination = ({ count }) => {
                 previousLabel={<PreviousLabelElement />}
                 renderOnZeroPageCount={null}
                 initialPage={setInitialPage()}
+                // initialPage={initPage}
 
                 className={scss.paginationList}
                 breakClassName={scss.paginationItem}
@@ -106,7 +108,7 @@ const Pagination = ({ count }) => {
                 disabledLinkClassName={scss.disabledLink}
             />
         </>
-    )
-}
+    );
+};
 
 export default Pagination;

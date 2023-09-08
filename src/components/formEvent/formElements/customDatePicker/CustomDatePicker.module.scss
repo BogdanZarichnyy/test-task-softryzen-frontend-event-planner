@@ -1,0 +1,65 @@
+@import '../../../../sass/utils/variables';
+@import '../../../../sass/utils/functions';
+@import '../../../../sass/utils/mixins';
+
+.inputDatePiker {
+    margin-top: 8px;
+    padding: 15px calc(11px + 24px) 15px 11px;
+    font-family: 'Poppins-Regular';
+    @include font(16px, 24px);
+    color: getColor('text-main');
+    border: 1px solid getColor('disable');
+    border-radius: 8px;
+    width: 100%;
+    outline: transparent;
+
+    &::placeholder {
+        color: transparent;
+    }
+
+    &:hover {
+        border-color: getColor('hover');
+
+        &::placeholder {
+            color: getColor('hover');
+            opacity: 1;
+        }
+    }
+}
+
+.buttonInputDatePiker {
+    position: absolute;
+    top: 40px;
+    right: 12px;
+    border: 0;
+    padding: 0;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-color: transparent;
+
+    &:hover svg {
+        stroke: getColor('hover');
+    }
+}
+
+.isOpenCalendar {
+    & svg {
+        stroke: getColor('general');
+    }
+}
+
+.buttonInputResetIcon {
+    height: 24px;
+    width: 24px;
+    stroke: getColor('disable');
+    fill: transparent;
+
+    .input:not(:placeholder-shown) + .buttonInputReset & {
+        stroke: getColor('general');
+    }
+
+    .inputArea:not(:placeholder-shown) + .buttonInputReset & {
+        stroke: getColor('general');
+    }
+}

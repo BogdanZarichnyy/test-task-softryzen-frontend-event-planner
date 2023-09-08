@@ -10,7 +10,7 @@ import scss from './EventCatalog.module.scss';
 const EventCatalog = () => {
     const eventsListStore = useSelector(eventsListSelector);
 
-    return(
+    return (
         <section className={scss.eventSection}>
             <div className='container'>
                 <div className={scss.wrraper}>
@@ -22,7 +22,7 @@ const EventCatalog = () => {
                     <h2 className={scss.title}>My events</h2>
 
                     <EventList />
-            
+
                     {!!eventsListStore.length 
                         ? <Pagination count={eventsListStore.length} />
                         : <div className={scss.noResult}>Not found events</div>
@@ -32,6 +32,6 @@ const EventCatalog = () => {
             </div>
         </section>
     );
-}
+};
 
 export default EventCatalog;

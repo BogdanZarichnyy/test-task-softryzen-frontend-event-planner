@@ -8,6 +8,6 @@ const OptionIconAscending = () => {
             <use id="arrow-up-small" href={`${sprite}#arrow-up-small`} />
         </svg>
     );
-}
+};
 
 export default OptionIconAscending;

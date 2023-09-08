@@ -80,5 +80,6 @@ const filterSlice = createSlice({
     }
 });
 
-export const { setEventsList, searchEvents, categoryEvents, sortByEvents, pageEvents, limitEvents } = filterSlice.actions;
+// export const { setEventsList, searchEvents, categoryEvents, sortByEvents, pageEvents, limitEvents } = filterSlice.actions;
+export const { setEventsList, pageEvents, limitEvents } = filterSlice.actions;
 export const reducerFilter = filterSlice.reducer;

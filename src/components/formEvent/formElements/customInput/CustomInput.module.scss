@@ -1,0 +1,42 @@
+@import '../../../../sass/utils/variables';
+@import '../../../../sass/utils/functions';
+@import '../../../../sass/utils/mixins';
+
+.labelInput {
+    display: block;
+    position: relative;
+    color: getColor('general');
+    font-family: 'Poppins-Regular';
+    @include font(16px, 16px);
+}
+
+.labelInput[for="date"] {
+    @media screen and (min-width: $tablet) {
+        grid-column: 1 / span 1 ;
+        grid-row: 4 /span 1;
+    }
+
+    @media screen and (min-width: $desktop) {
+        grid-column: 2 / span 1 ;
+        grid-row: 1 /span 1;
+    }
+}
+
+.labelInput[for="time"] {
+    @media screen and (min-width: $tablet) {
+        grid-column: 1 / span 1 ;
+        grid-row: 5 /span 1;
+    }
+
+    @media screen and (min-width: $desktop) {
+        grid-column: 2 / span 1 ;
+        grid-row: 2 /span 1;
+    }
+}
+
+.labelInput[for="location"] {
+    @media screen and (min-width: $desktop) {
+        grid-column: 2 / span 1 ;
+        grid-row: 3 /span 1;
+    }
+}

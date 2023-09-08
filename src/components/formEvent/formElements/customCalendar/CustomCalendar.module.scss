@@ -1,0 +1,79 @@
+@import '../../../../sass/utils/variables';
+@import '../../../../sass/utils/functions';
+@import '../../../../sass/utils/mixins';
+
+.datePiker {
+    position: absolute;
+    left: 0;
+    bottom: -380px;
+    padding: 20px;
+    width: 100%;
+    border-radius: 11px;
+    overflow: hidden;
+    background-color: getColor('main');
+    @include boxShadow();
+    z-index: 1;
+
+    @media screen and (min-width: $tablet) and (max-width: calc($desktop - 1px)) {
+        top: -380px;
+        bottom: auto;
+    }
+}
+
+.calendar {
+    border: 0;
+    font-family: 'Poppins-Medium';
+    @include font(12px, 16px);
+    color: getColor('text-main');
+}
+
+.tile {
+    background-color: inherit;
+    font-family: 'Poppins-Regular';
+    color: getColor('disable');
+    @include font(12px, 16px);
+    @include transition-effect(color font-family);
+
+    &:hover {
+        background-color: inherit !important;
+        font-family: 'Poppins-SemiBold';
+        color: getColor('hover') !important;
+    }
+}
+
+.buttonLabelCalendarIcon {
+    height: 20px;
+    width: 20px;
+    fill: getColor('disable');
+    @include transition-effect(fill);
+}
+
+.buttonsCalendar {
+    display: flex;
+    justify-content: space-between ;
+}
+
+.buttonCalendarCancel {
+    background-color: inherit;
+    padding: 7px 15px;
+    border-radius: 4px;
+    border: 1px solid getColor('general');
+    color: getColor('general');
+    @include font(12px, 16px);
+    @include transition-effect(color border-color);
+
+    &:hover,
+    &:focus {
+        background-color: inherit;
+        border-color: getColor('hover');
+        color: getColor('hover');
+    }
+}
+
+.buttonCalendarChooseDate {
+    padding: 8px 16px;
+    border-radius: 4px;
+    @include font(12px, 16px);
+}
+
+

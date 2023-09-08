@@ -6,12 +6,12 @@ import EventItem from '../eventItem/EventItem';
 import scss from './EventList.module.scss';
 
 const EventList = () => {
-    const eventsStorePagination = useSelector(selectEventsPagination);
+    const eventsPagination = useSelector(selectEventsPagination);
 
     return(
         <ul className={scss.eventList}>
-            {!!eventsStorePagination.length &&
-                eventsStorePagination.map((item) =>
+            {!!eventsPagination.length && 
+                eventsPagination.map((item) =>
                     <EventItem key={item.id} event={item}/>
                 )
             }

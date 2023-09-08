@@ -2,20 +2,16 @@ import { useState } from 'react';
 import Select from 'react-select';
 import CustomIconSelectLanguage from './customIconSelectLanguage/CustomIconSelectLanguage';
 
-const options = [
-    { value: 'EN', label: 'EN' },
-    { value: 'UK', label: 'UK' },
-];
+import options from '../../assets/options/language';
 
 const SelectLanguage = () => {
-    const [currentLanguage, setCurrentLanguage] = useState('EN');
+    const [currentLanguage, setCurrentLanguage] = useState(options[0].value);
 
     const getValueLanguage = () => {
-        return currentLanguage ? options.find(language => language.value === currentLanguage) : 'EN';
+        return currentLanguage ? options.find(language => language.value === currentLanguage) : options[0].label;
     }
 
     const handlerSelectedOption = (newValue) => {
-        console.log(newValue.value);
         setCurrentLanguage(newValue.value);
     }
 
@@ -30,6 +26,6 @@ const SelectLanguage = () => {
             components={{ DropdownIndicator: CustomIconSelectLanguage }}
         />
     );
-}
+};
 
 export default SelectLanguage;

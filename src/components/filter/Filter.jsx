@@ -4,12 +4,13 @@ import SelectCategory from '../../components/selectCategory/SelectCategory';
 import SelectSortBy from '../../components/selectSortBy/SelectSortBy';
 
 import { useSelector, useDispatch } from "react-redux";
-import { eventsSelector } from '../../redux/selectors';
+import { eventsSelector, eventsListSelector } from '../../redux/selectors';
 import { setEventsList, pageEvents } from '../../redux/slices/filterSlice';
 
 import { eventsSearch } from '../../utils/eventsSearch';
 import { eventsCategory } from '../../utils/eventsCategory';
 import { eventsSortBy } from '../../utils/eventsSortBy';
+import { setDefaultSortEventslist } from '../../utils/eventsDefautlSort';
 
 import sprite from '../../images/sprite.svg';
 
@@ -27,7 +28,7 @@ const Filter = () => {
     const dispatch = useDispatch();
     
     useEffect(() => {
-        dispatch(setEventsList(eventsStore));
+        dispatch(setEventsList(setDefaultSortEventslist(eventsStore)));
 
         if (!pageQuery) {
             dispatch(pageEvents(1));
@@ -58,6 +59,7 @@ const Filter = () => {
         }
 
         if (sortByQuery) {
+            console.log(sortByQuery);
             let dataUrlParams = {
                 ...(pageQuery ? {page: pageQuery} : null),
                 // ...(searchQuery ? {search: searchQuery} : null),
